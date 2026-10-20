@@ -136,7 +136,7 @@ input.t,textarea.t{width:100%;border:1.5px solid var(--line);border-radius:12px;
 </div></div></div></div>
 <script>
 // ---------- conexión: Apps Script (google.script.run dentro de Google; fetch a /exec desde la PWA) ----------
-const API='';
+const API='https://script.google.com/macros/s/AKfycbyjZkPCE_3q40zMWIqY7RzjNAzVgfNvu3dwSBXjwkQFtv7lPqHY-_dqWykVqTAATFeYMQ/exec';
 const api=(fn,...a)=>window.google&&google.script?new Promise((ok,no)=>google.script.run.withSuccessHandler(ok).withFailureHandler(no)[fn](...a))
  :fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn,args:a})}).then(r=>r.json()).then(j=>{if(j.error)throw new Error(j.error);return j.r});
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
