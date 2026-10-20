@@ -149,6 +149,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const MOT={'Dejó de comprar':c=>`${c.dias} días sin comprar`,'Cayó fuerte':c=>`compra ${pc(c.vsP)} vs su promedio`,'Creció fuerte':c=>`compra ${pc(c.vsP)} · ¿proyecto?`,'Sigue, pero dejó una categoría':c=>`dejó ${(c.cat_dejo||'').toLowerCase()}`,'En su tendencia':c=>'recompra normal','Bajó, pero igual que el año pasado (estacional probable)':c=>'bajó como el año pasado (estacional)'};
 const BAD={'Dejó de comprar':'b-red','Cayó fuerte':'b-red','Creció fuerte':'b-grn','Sigue, pero dejó una categoría':'b-amb','En su tendencia':'b-gry'};
 const ALT=['Dejó de comprar','Cayó fuerte'];
+MOT['Agregado']=c=>c.origen==='Prospecto'?'prospecto nuevo':'agregado por ti'+(c.ej_sae&&c.ej_sae!==c.ej?' · lo lleva: '+c.ej_sae:'');BAD['Agregado']='b-gry';
 const OBJ={'Dejó de comprar':'Recuperar cliente','Cayó fuerte':'Seguimiento','Creció fuerte':'Proyecto','Sigue, pero dejó una categoría':'Venta cruzada','En su tendencia':'Seguimiento'};
 const OBJS=['Seguimiento','Entrega de muestras','Proyecto','Cobranza','Reclamación','Recuperar cliente','Venta cruzada','Presentación (nuevo)'];
 const esc_=c=>c.v12>=5e6?'A':(c.v12>=1e6?'B':'C');
@@ -168,6 +169,18 @@ const SEM_TXT=`${FECH[0]}${LUN.getMonth()!==VIE.getMonth()?' '+MES[LUN.getMonth(
 const MESES_PROX=[1,2,3,4].map(k=>{const m=MES[(HOY.getMonth()+k)%12];return m[0].toUpperCase()+m.slice(1)}).concat(['No sabe']);
 // ---------- estado ----------
 let D=null,V=[],AGALL=[],CLAVE=ls.get('bp_clave',''),EJ=ls.get('bp_ej',''),scr='semana',cur=-1,F=null,taps=0,dia=Math.min(4,(HOY.getDay()+6)%7),SH=null,ultimo=null;
+// ---------- clientes agregados y vendedor de prueba ----------
+const PRUEBA='Vendedor Prueba';
+const real=e=>e!==PRUEBA;
+function mkCli(x){const m=D.clientes[0].meses;return {pz:'GD',tipo:'Agregado',plan:x.origen==='Prospecto'?'Prospecto nuevo: presentación y muestras':'Cliente agregado por el ejecutivo · sin análisis del piloto',
+ v12:0,r90:0,a90:0,vsP:null,vsA:null,dias:null,saldo:0,lim:0,cred_tope:false,cat_dejo:null,cat_dejo_v:0,en62:false,perd:0,meses:m,serie:m.map(()=>0),productos:[],cats:[],huecos:[],ult_compra:x.ult||null,
+ cli:x.cli,nombre:x.nombre,ej:x.ej,origen:x.origen,ej_sae:x.ej_sae}}
+// si ya es cliente de otro ejecutivo se copia con su análisis; si no, ficha vacía
+function addExtra(x){if(!D.clientes.some(c=>c.cli===x.cli&&c.ej===x.ej)){const b=D.clientes.find(c=>c.cli===x.cli);D.clientes.push(b?Object.assign({},b,{ej:x.ej,tipo:'Agregado',perd:0,origen:x.origen,ej_sae:b.ej}):mkCli(x))}}
+// copias de 8 clientes reales (clave PRUEBA-…) para practicar sin ensuciar la cartera ni la junta
+function armaPrueba(){if(D.clientes.some(c=>c.ej===PRUEBA))return;const t={};
+ D.clientes.filter(c=>c.tipo!=='Agregado'&&(t[c.tipo]=(t[c.tipo]||0)+1)<=2).slice(0,8).forEach(c=>D.clientes.push(Object.assign({},c,{cli:'PRUEBA-'+c.cli,nombre:c.nombre+' (prueba)',ej:PRUEBA})))}
+function prepara(extra){armaPrueba();(extra||[]).forEach(addExtra);ls.get('bp_cola_cli',[]).forEach(addExtra)}
 const mis=()=>D.clientes.map((c,i)=>[c,i]).filter(([c])=>c.ej===EJ);
 const AG=()=>{const o={};AGALL.filter(a=>a.ej===EJ).forEach(a=>{const i=D.clientes.findIndex(c=>c.cli===a.cli);if(i>=0)o[i]=a});return o};
 const enSemana=v=>new Date(v.ts)>=LUN;
@@ -177,14 +190,15 @@ const toast=t=>{const e=document.getElementById('toast');e.textContent=t;e.class
 async function carga(silencio){
  if(!CLAVE){pideClave(false);return}
  if(ls.get('bp_agenda_pend',0)){const c=ls.get('bp_cache',null);if(c&&EJ){try{await api('guardarAgenda',CLAVE,EJ,SEMANA,c.AGALL.filter(a=>a.ej===EJ));ls.del('bp_agenda_pend')}catch(e){}}}
- try{const r=await api('cargar',CLAVE,SEMANA);D=r.datos;V=r.visitas;AGALL=r.agenda;ls.set('bp_clave',CLAVE);ls.set('bp_cache',{D,V,AGALL})}
+ try{const r=await api('cargar',CLAVE,SEMANA);D=r.datos;V=r.visitas;AGALL=r.agenda;prepara(r.extra);ls.set('bp_clave',CLAVE);ls.set('bp_cache',{D,V,AGALL})}
  catch(e){if(String(e&&e.message||e).includes('clave')){ls.del('bp_clave');CLAVE='';pideClave(true);return}
-  const c=ls.get('bp_cache',null);if(!c){document.getElementById('scr').innerHTML='<div class="load">Sin conexión. Vuelve a intentar con señal.</div>';return}D=c.D;V=c.V;AGALL=c.AGALL;toast('Sin conexión: datos guardados en el teléfono')}
+  const c=ls.get('bp_cache',null);if(!c){document.getElementById('scr').innerHTML='<div class="load">Sin conexión. Vuelve a intentar con señal.</div>';return}D=c.D;V=c.V;AGALL=c.AGALL;prepara([]);toast('Sin conexión: datos guardados en el teléfono')}
  await reenvia();if(silencio)toast('Actualizado');pinta()}
 function pideClave(mala){document.getElementById('ah').innerHTML='<div class="t">Business Plan · GDL</div><div class="s">piloto · semana '+SEM_TXT+'</div>';document.getElementById('nav').classList.add('hide');
  document.getElementById('scr').innerHTML=`<div class="login"><div class="q">Clave de acceso</div>${mala?'<div style="color:var(--red);font-size:12px">Clave incorrecta</div>':''}<input class="t" id="clv" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')entra()"><div style="height:12px"></div><button class="btn" onclick="entra()">Entrar</button></div>`}
 function entra(){CLAVE=document.getElementById('clv').value.trim();if(!CLAVE)return;document.getElementById('scr').innerHTML='<div class="load">Cargando…</div>';carga()}
-async function reenvia(){const q=ls.get('bp_cola',[]);if(!q.length)return;const resto=[];
+async function reenvia(){const qc=ls.get('bp_cola_cli',[]);if(qc.length){const r2=[];for(const x of qc){try{await api('agregarCliente',CLAVE,x)}catch(e){r2.push(x)}}ls.set('bp_cola_cli',r2)}
+ const q=ls.get('bp_cola',[]);if(!q.length)return;const resto=[];
  for(const b of q){try{const j=await api('guardar',CLAVE,b);if(j.ok){V=V.filter(v=>v.id!==b._tmp);V.unshift(j.item)}}catch(e){resto.push(b)}}
  ls.set('bp_cola',resto);if(q.length>resto.length)toast((q.length-resto.length)+' visita(s) pendiente(s) enviadas')}
 // ---------- navegación ----------
@@ -193,15 +207,15 @@ function pinta(){
  if(!D)return;document.body.classList.toggle('wide',scr==='junta');
  if(scr==='junta')return dash();
  if(!EJ)return quien();
- ['plan','semana','junta'].forEach(k=>document.getElementById('n-'+k).classList.toggle('on',k===scr||(k==='semana'&&['resumen','registro','listo'].includes(scr))));
+ ['plan','semana','junta'].forEach(k=>document.getElementById('n-'+k).classList.toggle('on',k===scr||(k==='semana'&&['resumen','registro','listo','nuevo'].includes(scr))));
  document.getElementById('nav').classList.remove('hide');document.getElementById('foot').classList.add('hide');
- ({plan:s0,semana:s1,resumen:s2,registro:s3,listo:s4})[scr]()}
+ ({plan:s0,semana:s1,resumen:s2,registro:s3,listo:s4,nuevo:s5})[scr]()}
 function hdr(t,s,back,prog){document.getElementById('ah').innerHTML=`${back?`<div class="back" onclick="ir('${back[0]}')">‹ ${back[1]}</div>`:''}<div class="row"><div><div class="t">${t}</div><div class="s">${s}</div></div>${back?'':`<div class="who" onclick="cambia()">${esc(EJ)} ▾</div>`}</div>${prog!=null?`<div class="prog"><i style="width:${prog}%"></i></div>`:''}`}
 function foot(h){const f=document.getElementById('foot');f.innerHTML=h;f.classList.remove('hide')}
 function quien(){document.getElementById('nav').classList.add('hide');document.getElementById('foot').classList.add('hide');
  document.getElementById('ah').innerHTML='<div class="t">Business Plan · GDL</div><div class="s">piloto · semana '+SEM_TXT+'</div>';
- const ejs=[...new Set(D.clientes.map(c=>c.ej))];
- document.getElementById('scr').innerHTML=`<div class="login"><div class="q">¿Quién eres?</div>${ejs.map(e=>`<button class="chip" onclick="setEj('${esc(e)}')">${esc(e)} <span style="color:var(--mut);font-weight:500">· ${D.clientes.filter(c=>c.ej===e).length} clientes</span></button>`).join('')}<div style="height:10px"></div><button class="chip" onclick="ir('junta')">📊 Solo ver la Junta (gerente)</button></div>`}
+ const ejs=[...new Set(D.clientes.map(c=>c.ej))].filter(real).concat([PRUEBA]);
+ document.getElementById('scr').innerHTML=`<div class="login"><div class="q">¿Quién eres?</div>${ejs.map(e=>`<button class="chip" onclick="setEj('${esc(e)}')">${e===PRUEBA?'🧪 ':''}${esc(e)} <span style="color:var(--mut);font-weight:500">· ${e===PRUEBA?'para practicar · no cuenta en la junta':D.clientes.filter(c=>c.ej===e).length+' clientes'}</span></button>`).join('')}<div style="height:10px"></div><button class="chip" onclick="ir('junta')">📊 Solo ver la Junta (gerente)</button></div>`}
 function setEj(e){EJ=e;ls.set('bp_ej',e);ir('plan')}
 function cambia(){EJ='';ls.del('bp_ej');ir('semana')}
 // ---------- 0 · Planear mi semana ----------
@@ -212,6 +226,7 @@ function s0(){const ag=AG(),M=mis(),n=Object.keys(ag).length;
  const hoy=Object.entries(ag).filter(([i,a])=>a.d===dia).sort((x,y)=>x[1].h.localeCompare(y[1].h));
  h+=hoy.length?hoy.map(([i,a])=>`<div class="ag"><div class="h">${a.h==='Mañana'?'☀ mañ':'◐ tarde'}</div><div><b>${esc(D.clientes[i].nombre)}</b><br><span class="why">${esc(a.t)} · ${esc(a.o)}</span></div><span class="x" onclick="quita(${i})">×</span></div>`).join(''):`<div class="empty">Nada agendado el ${DIAS[dia].toLowerCase()} · toca “+ Agendar” abajo</div>`;
  const sug=M.filter(([c,i])=>!(i in ag));
+ h+=`<button class="addp" onclick="ir('nuevo')">+ Agregar cliente que no está en la lista</button>`;
  h+=`<div class="sec">Sugeridos por el sistema · ${sug.length}</div>`+sug.map(([c,i])=>`<div class="it" style="cursor:default"><div class="dot" style="background:${dotc(c)}"></div><div style="min-width:0"><div class="n">${esc(c.nombre)}</div><div class="why">${esc(why(c))}</div></div><button class="add" onclick="openSheet(${i})">+ Agendar</button></div>`).join('');
  document.getElementById('scr').innerHTML=h}
 function openSheet(i){const c=D.clientes[i];SH={i,d:dia,h:'Mañana',t:'Visita',o:OBJ[c.tipo]||'Seguimiento'};drawSheet();document.getElementById('sheet').classList.add('on');document.getElementById('shade').classList.add('on')}
@@ -232,7 +247,7 @@ function s1(){const ag=AG(),M=mis(),he=hechosDe(EJ);
  let h='';const grp=[...DIAS.map((d,j)=>[d+' '+FECH[j],j]),['Sin agendar',-1]];
  grp.forEach(([g,j])=>{const cs=M.filter(([c,i])=>j<0?!(i in ag):(i in ag&&ag[i].d===j));if(!cs.length)return;h+=`<div class="sec">${g} · ${cs.length}</div>`;
   cs.forEach(([c,i])=>h+=`<div class="it" onclick="abre(${i})"><div class="dot" style="background:${dotc(c)}"></div><div style="min-width:0"><div class="n">${esc(c.nombre)}</div><div class="m">${i in ag?esc(ag[i].t+' · '+ag[i].o):esc((MOT[c.tipo]||(()=>c.tipo))(c))}</div></div><div class="r">${he.has(c.cli)?'<span class="ok">✓</span>':`<b>${fm(c.v12)}</b>12 m`}</div></div>`)});
- document.getElementById('scr').innerHTML=h||'<div class="empty">Sin clientes asignados</div>'}
+ document.getElementById('scr').innerHTML=(h||'<div class="empty">Sin clientes asignados</div>')+`<button class="addp" onclick="ir('nuevo')">+ Agregar cliente que no está en la lista</button>`}
 function abre(i){cur=i;ir('resumen')}
 // ---------- 2 · Resumen del cliente ----------
 function spark(c){const mx=Math.max(...c.serie,1),w=300,hh=70,bw=w/c.serie.length;
@@ -240,7 +255,7 @@ function spark(c){const mx=Math.max(...c.serie,1),w=300,hh=70,bw=w/c.serie.lengt
 function s2(){const c=D.clientes[cur];hdr(esc(c.nombre),esc(c.cli+' · '+c.pz+(c.en62?' · en la lista de los 62':'')),['semana','Mi semana']);
  const cr=c.lim>0?Math.min(1,(c.saldo||0)/c.lim):0;const vs=V.filter(v=>v.cli===c.cli);
  document.getElementById('scr').innerHTML=`<span class="badge ${BAD[c.tipo]||'b-gry'}">${esc(c.tipo)}</span>
-<div class="tiles"><div class="tile"><div class="l">Venta 12 m</div><div class="v">${fm(c.v12)}</div></div><div class="tile"><div class="l">Últimos 90 d</div><div class="v">${fm(c.r90)}</div><div class="d">${pc(c.vsP)} vs su promedio</div></div><div class="tile"><div class="l">Sin comprar</div><div class="v">${c.dias} d</div><div class="d">última ${fd(c.ult_compra)}</div></div></div>
+<div class="tiles"><div class="tile"><div class="l">Venta 12 m</div><div class="v">${fm(c.v12)}</div></div><div class="tile"><div class="l">Últimos 90 d</div><div class="v">${fm(c.r90)}</div><div class="d">${pc(c.vsP)} vs su promedio</div></div><div class="tile"><div class="l">Sin comprar</div><div class="v">${c.dias==null?'—':c.dias+' d'}</div><div class="d">última ${fd(c.ult_compra)}</div></div></div>
 <div class="card"><h4>Compra mes a mes · últimos 12 meses</h4>${spark(c)}<div style="font-size:11px;color:var(--mut)">Mismos 90 días del año pasado: <b style="color:var(--ink)">${fm(c.a90)}</b> (${pc(c.vsA)} hoy)</div></div>
 <div class="plan"><b>Plan sugerido:</b> ${esc(c.plan)}</div><div style="height:8px"></div>
 <div class="card"><h4>Qué compra</h4>${c.productos.map(p=>`<div class="pr"><span><b>${esc(p.k)}</b></span><span>${fm(p.v)} · ${Math.round(p.m2/1e3).toLocaleString('es-MX')} mil m² · ${fd(p.ult)}</span></div>`).join('')||'<div style="font-size:12px;color:var(--mut)">—</div>'}</div>
@@ -303,13 +318,39 @@ function s4(){const {c,v,taps:t}=ultimo;hdr('Guardado','se suma a su historial')
  foot(`<button class="btn" onclick="siguiente()">Siguiente cliente</button>`)}
 function siguiente(){const ag=AG(),he=hechosDe(EJ);const M=mis();
  const n=M.find(([c,i])=>i in ag&&!he.has(c.cli))||M.find(([c])=>!he.has(c.cli));if(n){cur=n[1];ir('resumen')}else ir('semana')}
+// ---------- 6 · Agregar cliente que no está en la lista ----------
+let BQ='',NP=null;
+function candidatos(){const vis=new Set(),out=[];
+ D.clientes.filter(c=>c.ej!==EJ&&real(c.ej)).forEach(c=>{if(!vis.has(c.cli)){vis.add(c.cli);out.push({cli:c.cli,nombre:c.nombre,ej:c.ej})}});
+ (D.directorio||[]).forEach(c=>{if(!vis.has(c.cli)){vis.add(c.cli);out.push(c)}});return out}
+const norm=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+function s5(){hdr('Agregar cliente','que no venía en tu lista',['semana','Mi semana']);document.getElementById('foot').classList.add('hide');
+ if(NP){document.getElementById('scr').innerHTML=`<div class="q">Prospecto nuevo <small>no está en SAE</small></div>
+<input class="t" id="np_n" placeholder="Nombre de la empresa" value="${esc(NP.nombre)}" oninput="NP.nombre=this.value">
+<div class="q">Nota <small>opcional · ciudad, contacto, qué imprime</small></div><textarea class="t" rows="2" oninput="NP.nota=this.value">${esc(NP.nota)}</textarea>
+<div style="height:12px"></div><button class="btn" onclick="agregaCli(null)">Agregar y registrar visita</button><div style="height:8px"></div><button class="addp" onclick="NP=null;s5()">‹ Mejor buscar en SAE</button>`;return}
+ const q=norm(BQ).trim(),L=q.length<2?[]:candidatos().filter(c=>norm(c.nombre+' '+c.cli).includes(q)).slice(0,25);
+ const e=document.getElementById('scr');e.innerHTML=`<div class="q">Busca por nombre o clave <small>clientes que compraron en GDL en 24 meses</small></div>
+<input class="t" id="bq" placeholder="ej. Etipress o GD269" value="${esc(BQ)}" oninput="BQ=this.value;s5()" autocomplete="off">
+<div id="res">${q.length<2?'<div class="empty">Escribe al menos 2 letras</div>':(L.map(c=>`<div class="it" onclick="agregaCli('${esc(c.cli)}')"><div style="min-width:0"><div class="n">${esc(c.nombre)}</div><div class="m">${esc(c.cli)}${c.ej?' · lo lleva: '+esc(c.ej):''}${c.ult?' · última compra '+fd(c.ult):''}</div></div><div class="r"><b style="color:var(--teal)">+ Agregar</b></div></div>`).join('')||'<div class="empty">No aparece en la cartera GDL</div>')}</div>
+<div style="height:10px"></div><button class="addp" onclick="NP={nombre:BQ,nota:''};s5()">+ No está: registrar prospecto nuevo</button>`;
+ const i=document.getElementById('bq');i.focus();i.setSelectionRange(i.value.length,i.value.length)}
+async function agregaCli(cli){let x;
+ if(cli){const c=candidatos().find(c=>c.cli===cli);x={cli,nombre:c.nombre,ej:EJ,origen:'SAE',ej_sae:c.ej||'',ult:c.ult||null,nota:''}}
+ else{const n=(NP.nombre||'').trim();if(n.length<3){toast('Escribe el nombre de la empresa');return}
+  x={cli:'N-'+Date.now().toString(36).toUpperCase(),nombre:n,ej:EJ,origen:'Prospecto',ej_sae:'',nota:(NP.nota||'').trim()}}
+ addExtra(x);cur=D.clientes.findIndex(c=>c.cli===x.cli&&c.ej===EJ);BQ='';NP=null;ls.set('bp_cache',{D,V,AGALL});
+ try{const j=await api('agregarCliente',CLAVE,x);if(!j.ok)throw new Error(j.error);toast('Cliente agregado a tu lista')}
+ catch(e){const q=ls.get('bp_cola_cli',[]);q.push(x);ls.set('bp_cola_cli',q);toast('Sin señal: se agrega al volver la señal')}
+ ir('resumen')}
 // ---------- 5 · Junta del lunes ----------
 function hb(items,max,col,fmt,w=380){const h=items.length*24+4;return items.length?`<svg viewBox="0 0 ${w} ${h}" width="100%">${items.map(([l,v,c2],i)=>{const bw=Math.max(2,(w-200)*v/(max||1));return `<text x="0" y="${i*24+16}" font-size="11" fill="#39485a">${esc(String(l).slice(0,24))}</text><rect x="150" y="${i*24+5}" width="${bw}" height="14" rx="3" fill="${c2||col}"/><text x="${156+bw}" y="${i*24+16}" font-size="11" font-weight="700" fill="#10202e">${fmt(v)}</text>`}).join('')}</svg>`:'<div class="empty">Sin capturas todavía</div>'}
-function dash(){const sel=document.getElementById('jej');const ejs=[...new Set(D.clientes.map(c=>c.ej))];
- if(!sel.options.length)sel.innerHTML='<option value="">Ejecutivo: todos</option>'+ejs.map(e=>`<option>${esc(e)}</option>`).join('');
- const fe=sel.value,CL=D.clientes.filter(c=>!fe||c.ej===fe),cls=new Set(CL.map(c=>c.cli));
- const VV=V.filter(v=>cls.has(v.cli)),VS=VV.filter(enSemana),AGS=AGALL.filter(a=>cls.has(a.cli));
- document.getElementById('jsub').textContent=`semana ${SEM_TXT} · ${fe||ejs.length+' ejecutivos'} · datos de venta al ${fd(D.corte)} · ${V.length} visitas capturadas`;
+function dash(){const sel=document.getElementById('jej');const ejs=[...new Set(D.clientes.map(c=>c.ej))].filter(real);
+ if(!sel.options.length)sel.innerHTML='<option value="">Ejecutivo: todos</option>'+ejs.concat([PRUEBA]).map(e=>`<option>${esc(e)}</option>`).join('');
+ const fe=sel.value,CL=D.clientes.filter(c=>fe?c.ej===fe:real(c.ej)),cls=new Set(CL.map(c=>c.cli));
+ const delEj=x=>fe?x.ej===fe:real(x.ej);
+ const VV=V.filter(v=>cls.has(v.cli)&&delEj(v)),VS=VV.filter(enSemana),AGS=AGALL.filter(a=>cls.has(a.cli)&&delEj(a));
+ document.getElementById('jsub').textContent=`semana ${SEM_TXT} · ${fe||ejs.length+' ejecutivos'} · datos de venta al ${fd(D.corte)} · ${VV.length} visitas capturadas`;
  const al=CL.filter(c=>ALT.includes(c.tipo)),pe=al.reduce((a,c)=>a+c.perd,0);
  const conCausa=al.filter(c=>VV.some(v=>v.cli===c.cli)).length;
  const lines=VV.flatMap(v=>v.lineas.map(l=>({...l,ej:v.ej,cli:v.cli})));
@@ -321,7 +362,7 @@ function dash(){const sel=document.getElementById('jej');const ejs=[...new Set(D
 <div><div class="l">Alertas con causa</div><div class="dv">${conCausa} de ${al.length}</div><div class="d">meta: todas en ≤ 2 semanas</div></div>
 <div><div class="l">Sin material</div><div class="dv" style="color:var(--amb)">${Math.round(fmTot/1e3).toLocaleString('es-MX')} mil m²</div><div class="d">${fmat.length} veces · ${new Set(fmat.map(l=>l.prod)).size} productos</div></div>
 <div><div class="l">Próxima compra (${m1.toLowerCase()})</div><div class="dv">${Math.round(pron.filter(l=>l.mes===m1).reduce((a,l)=>a+(+l.m2||0),0)/1e3).toLocaleString('es-MX')} mil m²</div><div class="d">va a Planeación</div></div>`;
- const ej=ejs.filter(e=>!fe||e===fe).map(e=>{const c=D.clientes.filter(x=>x.ej===e);const ag=AGALL.filter(a=>a.ej===e).length;const h2=hechosDe(e).size;return `<tr><td><b>${esc(e)}</b></td><td class="n">${c.length}</td><td class="n" style="color:var(--red);font-weight:700">${c.filter(x=>ALT.includes(x.tipo)).length}</td><td class="n">${fm(c.reduce((a,x)=>a+(ALT.includes(x.tipo)?x.perd:0),0))}</td><td class="n">${c.filter(x=>x.tipo==='Creció fuerte').length}</td><td class="n">${h2} / ${ag}</td></tr>`}).join('');
+ const ej=(fe?[fe]:ejs).map(e=>{const c=D.clientes.filter(x=>x.ej===e);const ag=AGALL.filter(a=>a.ej===e).length;const h2=hechosDe(e).size;return `<tr><td><b>${esc(e)}</b></td><td class="n">${c.length}</td><td class="n" style="color:var(--red);font-weight:700">${c.filter(x=>ALT.includes(x.tipo)).length}</td><td class="n">${fm(c.reduce((a,x)=>a+(ALT.includes(x.tipo)?x.perd:0),0))}</td><td class="n">${c.filter(x=>x.tipo==='Creció fuerte').length}</td><td class="n">${h2} / ${ag}</td></tr>`}).join('');
  const R={};lines.forEach(l=>{if(l.motivo&&!RAZ_VENTA.includes(l.motivo))R[l.motivo]=(R[l.motivo]||0)+1});
  const ca=Object.entries(R).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,k==='Falta de material'?'#c9963a':(RAZ_MALA.includes(k)?'#c0392b':'#9DC4D5')]);
  const P={};fmat.forEach(l=>P[l.prod]=(P[l.prod]||0)+(+l.m2||0));const fp=Object.entries(P).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>[k,v,'#c9963a']);
@@ -338,7 +379,7 @@ function dash(){const sel=document.getElementById('jej');const ejs=[...new Set(D
 <div class="pn" style="grid-column:span 2"><h5>Clientes en alerta: ¿ya sabemos por qué?</h5><div class="k">los 8 con más venta en juego · se pone verde cuando el ejecutivo captura la visita</div><table><tr><th>Cliente</th><th>Alerta</th><th class="n">$ / trim que dejó de entrar</th><th>Causa</th></tr>${alr||'<tr><td colspan=4>—</td></tr>'}</table></div>`}
 function csv(){const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';const N={};D.clientes.forEach(c=>N[c.cli]=c.nombre);
  const rows=[['fecha','ejecutivo','cliente','nombre','tipo','resultado','producto','m2','razon','mes','competidor','proyecto','etapa','cobranza','siguiente','cuando','nota']];
- V.forEach(v=>(v.lineas.length?v.lineas:[{}]).forEach(l=>rows.push([v.ts,v.ej,v.cli,N[v.cli],v.tipo,v.res,l.prod,l.m2,l.motivo,l.mes,v.comp,v.proy,v.pet,v.cob,v.sig,v.cuando,v.nota])));
+ const fe=document.getElementById('jej').value;V.filter(v=>fe?v.ej===fe:real(v.ej)).forEach(v=>(v.lineas.length?v.lineas:[{}]).forEach(l=>rows.push([v.ts,v.ej,v.cli,N[v.cli],v.tipo,v.res,l.prod,l.m2,l.motivo,l.mes,v.comp,v.proy,v.pet,v.cob,v.sig,v.cuando,v.nota])));
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+rows.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv'}));a.download='bp_gdl_'+iso(HOY)+'.csv';document.body.appendChild(a);a.click();a.remove()}
 carga();
 </script></body></html>
