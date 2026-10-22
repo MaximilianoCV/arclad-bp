@@ -1,5 +1,5 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
-<title>Business Plan · GDL</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0d1b2e"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BP ARclad"><meta name="apple-mobile-web-app-status-bar-style" content="default"><script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))</script>
+<title>Business Plan · ARclad</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0d1b2e"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BP ARclad"><meta name="apple-mobile-web-app-status-bar-style" content="default"><script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))</script>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=DM+Serif+Text&display=swap" rel="stylesheet">
 <style>
 
@@ -85,302 +85,409 @@ header p{color:#9db0c2;font-size:13px;max-width:110ch;margin-top:4px}
 @media(max-width:900px){.notes{grid-template-columns:1fr}}
 @media(max-width:400px){.col,.phone{width:100%}}
 
-/* ---- app real: un solo teléfono que navega entre las pantallas del mockup ---- */
-body{min-height:100vh}
-.app{width:100%;max-width:420px;height:100vh;height:100dvh;margin:0 auto;background:#fff;display:flex;flex-direction:column;position:relative;overflow:hidden;overflow:clip}
-.sheet:not(.on){visibility:hidden}
-@media(min-width:700px){body{padding:18px 0}.app{height:860px;border-radius:38px;border:10px solid #111;box-shadow:0 18px 40px rgba(10,20,32,.25)}}
-.ah .row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.ah .who{font-size:11px;color:var(--mint);cursor:pointer;white-space:nowrap;margin-top:3px}
-.scr{padding-bottom:150px}
-.foot{bottom:58px}
-.nav{position:absolute;left:0;right:0;bottom:0;height:58px;background:#fff;border-top:1px solid var(--line);display:flex;z-index:3}
-.nav button{flex:1;border:0;background:none;font-family:inherit;font-size:11px;font-weight:700;color:var(--mut);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-.nav button i{font-style:normal;font-size:18px}.nav button.on{color:var(--teal)}
-.sheet,.shade{bottom:0}
-.line{border:1.5px solid var(--line);border-radius:14px;padding:10px;margin:8px 0;background:#fff}
-.line .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.line .top b{font-size:13px}.line .x{border:0;background:none;color:var(--red);font-size:18px;cursor:pointer}
-.line .q{margin-top:8px}
-.step input{width:110px;text-align:center;font-size:18px;font-weight:800;border:1.5px solid var(--line);border-radius:10px;height:38px;font-family:inherit}
-.chip.fm.on{background:var(--amb);border-color:var(--amb);color:#fff}
-input.t,textarea.t{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px;font-size:13px;font-family:inherit;margin-top:6px}
-.addp{display:block;width:100%;border:1.5px dashed var(--teal);color:var(--teal);background:#fff;border-radius:14px;padding:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;margin-top:4px}
+body{min-height:100vh;background:var(--bg)}
+.app{width:100%;max-width:430px;height:100vh;height:100dvh;margin:0 auto;background:#f4f6f8;display:flex;flex-direction:column;position:relative;overflow:hidden;overflow:clip}
+@media(min-width:700px){body{padding:18px 0}.app{height:880px;border-radius:38px;border:10px solid #111;box-shadow:0 18px 40px rgba(10,20,32,.25)}}
+.ah{position:relative;padding:12px 16px 12px}.ah .t{padding-right:90px}.arapp{position:absolute;right:16px;top:14px;height:17px;opacity:.95}
+.ah .who{position:absolute;right:16px;top:38px;font-size:11px;color:var(--mint);cursor:pointer;white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis}
+.scr{flex:1;overflow-y:auto;padding:10px 10px 150px;background:#f4f6f8}
+.nav3{position:absolute;left:0;right:0;bottom:0;height:60px;background:#fff;border-top:1px solid var(--line);display:flex;z-index:4}
+.nav3 button{flex:1;border:0;background:none;font:inherit;font-size:11px;font-weight:800;color:var(--mut);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.nav3 button span{width:22px;height:3px;border-radius:2px;background:transparent}.nav3 button.on{color:var(--teal)}.nav3 button.on span{background:var(--teal)}
+.nav3 button.reg b{background:var(--teal);color:#fff;border-radius:20px;padding:8px 13px;font-size:12px;white-space:nowrap}
+.foot3{position:absolute;left:0;right:0;bottom:60px;background:#fff;border-top:1px solid var(--line);padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;z-index:3}
+.foot3.hide{display:none}.foot3 .msg{font-size:11px;color:var(--mut);flex:1}
+.save2{background:var(--teal);color:#fff;border:0;border-radius:8px;padding:10px 20px;font:inherit;font-weight:800;font-size:13px;cursor:pointer}.save2:disabled{background:#b9c4cc;cursor:not-allowed}
+.hd2{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:14px 4px 6px;display:flex;justify-content:space-between;align-items:center}
+.crd{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:7px}
+.crd .n{font-weight:700;font-size:13.5px;cursor:pointer}.crd .m{font-size:11.5px;color:var(--mut);margin-top:2px}
+.crd .acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.crd .acts button{border:1.5px solid var(--teal);background:#fff;color:var(--teal);border-radius:8px;padding:5px 10px;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer}
+.crd .acts button.p{background:var(--teal);color:#fff}.crd .acts button.g{border-color:var(--line);color:var(--mut)}.crd.ok{opacity:.6}.crd.ok .n{text-decoration:line-through}
+.tg{display:inline-block;font-size:10px;font-weight:800;border-radius:6px;padding:2px 7px;margin:0 4px 2px 0}
+.tg.r{background:#fbe9e7;color:var(--red)}.tg.a{background:#fbf3e3;color:#8a5a00}.tg.g{background:#e3f6ee;color:var(--green)}.tg.s{background:var(--soft);color:var(--mut)}.tg.b{background:#e7eefc;color:#1F426E}
+.prog{background:#ffffff26;height:6px;border-radius:3px;margin-top:8px;overflow:hidden}.prog i{display:block;height:100%;background:var(--mint)}
+.pend{background:#fbf3e3;color:#8a5a00;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:700;margin-bottom:6px;cursor:pointer}
+.srch input{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:14px;background:#fff}.srch input:focus{outline:none;border-color:var(--teal)}
+.res{background:#fff;border:1px solid var(--line);border-radius:10px;margin-top:4px;max-height:360px;overflow:auto}.res:empty{display:none}
+.res div{padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px}.res div:hover{background:var(--soft)}.res small{display:block;color:var(--mut);font-size:11px}
+.res .grp{background:var(--soft);font-size:10.5px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;cursor:default;padding:6px 12px}
+.selc{background:#fff;border:1.5px solid var(--teal);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.selc b{font-size:13.5px}.selc small{display:block;color:var(--mut);font-size:11px;margin-top:2px}.selc a{font-size:11.5px;color:var(--teal);font-weight:800;cursor:pointer;white-space:nowrap}
+.qq{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;margin-bottom:8px}
+.qt{font-size:13px;font-weight:700;display:flex;gap:6px;align-items:baseline}.qn{color:var(--teal);font-weight:800;min-width:14px}.rq{color:var(--red)}
+.qnote{font-size:10.5px;color:var(--mut);margin:3px 0 0 20px}
+.opts{display:grid;margin:6px 0 0 14px}.opts.c2{grid-template-columns:1fr 1fr}.opts.c3{grid-template-columns:1fr 1fr 1fr}
+.opts label{display:flex;align-items:center;gap:8px;font-size:13px;padding:7px 2px;color:var(--body);cursor:pointer}.opts input{accent-color:var(--teal);width:17px;height:17px;margin:0;flex:0 0 17px}
+.opts label:has(input:checked){color:var(--ink);font-weight:700}
+.txt{width:calc(100% - 20px);margin:6px 0 0 20px;border:0;border-bottom:1.5px solid var(--line);padding:6px 0;font:inherit;font-size:14px;background:transparent}.txt:focus{outline:none;border-color:var(--teal)}
+.sel2{margin:8px 0 0 20px;width:calc(100% - 20px);border:1.5px solid var(--line);border-radius:8px;font:inherit;font-size:14px;padding:9px 8px;background:#fff}
+.more{font-size:12px;color:var(--teal);font-weight:800;padding:6px 4px 10px;cursor:pointer}
+table.pt2{width:calc(100% - 6px);margin:8px 0 0 6px;border-collapse:collapse;font-size:12px}table.pt2 th{text-align:left;font-size:10px;color:var(--mut);font-weight:800;padding:2px 3px}
+table.pt2 td{padding:3px 2px;border-top:1px solid var(--line);vertical-align:top}table.pt2 select,table.pt2 input{width:100%;border:1.5px solid var(--line);border-radius:7px;padding:7px 4px;font:inherit;font-size:12px;background:#fff}
+table.pt2 td:nth-child(1){width:42%}table.pt2 td:nth-child(2){width:22%}table.pt2 td:nth-child(4){width:16px}.x{color:var(--red);font-weight:800;font-size:17px;cursor:pointer;padding:0 3px}
+.psug{display:none;position:absolute;left:2px;top:36px;width:240px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 20px #0002;z-index:20;max-height:230px;overflow:auto}
+.psug div{padding:8px 9px;font-size:12.5px;cursor:pointer;border-bottom:1px solid var(--line)}.psug div:hover{background:var(--soft)}.psug small{color:var(--teal);font-weight:700}
+.addit{margin:8px 0 0 6px;color:var(--teal);font-weight:800;font-size:12.5px;cursor:pointer}
+.done h2{font-family:'DM Serif Text';font-weight:400;font-size:24px;color:var(--navy);margin:8px 4px}.done .row{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-top:6px;font-size:12.5px}
+.done .row b{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}table.pt3{width:100%;border-collapse:collapse;font-size:12px;margin-top:3px}table.pt3 td{padding:3px 2px;border-top:1px dashed var(--line)}
+.btn2{display:block;width:100%;margin-top:10px;border:1.5px solid var(--teal);background:#fff;color:var(--teal);border-radius:10px;padding:10px;font:inherit;font-weight:800;cursor:pointer}
+.days{display:flex;gap:4px;margin:4px 0 8px}.days div{flex:1;text-align:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 0;font-size:11px;cursor:pointer}.days div b{display:block;font-size:15px}
+.days div.on{background:var(--navy);color:#fff;border-color:var(--navy)}.days div.hoy{border-color:var(--teal)}.days div i{display:block;font-style:normal;font-size:9.5px;color:var(--mut)}.days div.on i{color:var(--mint)}
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:6px 0 8px}
 .hist{font-size:12px;padding:6px 0;border-bottom:1px dashed var(--line)}.hist:last-child{border:0}
-.toast{position:absolute;top:70px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 16px;border-radius:20px;font-size:12.5px;z-index:9;white-space:nowrap}
-.login{padding:30px 18px}.login .q{font-size:15px}.login .chip{width:100%;text-align:left;margin-bottom:6px}
-.load{padding:60px 20px;text-align:center;color:var(--mut);font-size:13px}
-/* junta: pantalla ancha */
-#junta{display:none;padding:0 0 30px}body.wide #junta{display:block}body.wide .app{display:none}body.wide{padding:0}
-#junta .dash{margin:0 auto;max-width:1300px;padding:16px}
-.dh select{background:#ffffff1a;border:0;border-radius:8px;padding:5px 10px;font-size:12px;color:#fff;font-family:inherit}.dh select option{color:#000}
-.dh .b{background:var(--mint);color:var(--green);border:0;border-radius:8px;padding:6px 12px;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit}
-.dh .b.o{background:#ffffff1a;color:#fff}
-@media(max-width:1000px){.dk{grid-template-columns:repeat(2,1fr)}.dg{grid-template-columns:1fr}.dg .pn{grid-column:auto!important}}
+.bars{display:flex;align-items:flex-end;gap:8px;height:70px;margin:16px 0 2px}.bars div{flex:1;background:#cfe9e1;border-radius:6px 6px 0 0;position:relative;min-height:3px}.bars div.me{background:var(--teal)}
+.bars div span{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:10.5px;font-weight:800}.bl{display:flex;gap:8px;font-size:10px;color:var(--mut)}.bl span{flex:1;text-align:center}
+.hb{display:flex;align-items:center;gap:8px;font-size:11.5px;margin:4px 0}.hb .k{width:118px}.hb .w{flex:1;background:var(--soft);border-radius:4px;height:9px}.hb .w i{display:block;height:100%;background:var(--navy);border-radius:4px}
+.toast{position:absolute;top:84px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 16px;border-radius:20px;font-size:12.5px;z-index:9;white-space:nowrap}
+.login{padding:24px 16px}.login .q{font-size:15px;font-weight:800;margin-bottom:8px}.login .chip{width:100%;text-align:left;margin-bottom:6px}
+.load{padding:60px 20px;text-align:center;color:var(--mut);font-size:13px}.empty{font-size:12px;color:var(--mut);padding:6px 2px}
+.foot-lcg{text-align:center;padding:16px 0 6px}.foot-lcg img{height:10px;opacity:.5;filter:invert(1)}
+.prueba{background:#fff3cd;color:#7a5600;font-size:11px;font-weight:800;text-align:center;padding:4px}
+/* equipo (gerente) */
+#eq{display:none}body.wide #eq{display:block}body.wide .app{display:none}body.wide{padding:0}
+.eqh{background:var(--navy);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.eqh .t{font-weight:800;font-size:19px}.eqh .s{font-size:12px;color:#9db0c2}.eqh .r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.eqh button,.eqh select{background:#ffffff1a;color:#fff;border:0;border-radius:8px;padding:7px 12px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer}.eqh select option{color:#000}.eqh button.m{background:var(--mint);color:var(--green)}
+.eqb{max-width:1280px;margin:0 auto;padding:14px 16px 40px}
+.kp{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kp>div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kp .l{font-size:10.5px;color:var(--mut);font-weight:800;text-transform:uppercase;letter-spacing:.05em}.kp .v{font-size:24px;font-weight:800}.kp .d{font-size:11px;color:var(--mut)}
+.gg{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-top:14px}.pn{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px}.pn h4{font-size:13px;margin-bottom:8px}
+table.g{width:100%;border-collapse:collapse;font-size:12.5px}table.g th{font-size:10.5px;text-transform:uppercase;color:var(--mut);text-align:left;border-bottom:2px solid var(--line);padding:6px}table.g td{padding:7px 6px;border-bottom:1px solid var(--line)}
+table.g td a{color:var(--navy);font-weight:800;cursor:pointer}.hm{display:inline-block;width:26px;height:18px;border-radius:4px;margin-right:2px;font-size:10px;text-align:center;line-height:18px;font-weight:700}
+.li{font-size:12px;padding:5px 0;border-bottom:1px dashed var(--line)}.li:last-child{border:0}.li b{color:var(--ink)}.li span{color:var(--mut)}
+@media(max-width:900px){.kp{grid-template-columns:1fr 1fr}.gg{grid-template-columns:1fr}}
 </style></head><body>
 <div class="app" id="app">
- <div class="sb" style="height:6px;padding:0"></div>
- <div class="ah" id="ah"></div>
+ <div class="prueba hide" id="prb">Modo práctica · Vendedor Prueba · no cuenta en los reportes</div>
+ <div class="ah" id="ah"></div><img class="arapp" src="data:image/png;base64,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" alt="ARclad">
  <div class="scr" id="scr"><div class="load">Cargando…</div></div>
- <div class="foot hide" id="foot"></div>
- <div class="nav hide" id="nav">
-  <button id="n-plan" onclick="ir('plan')"><i>🗓</i>Planear</button>
-  <button id="n-semana" onclick="ir('semana')"><i>📋</i>Mi semana</button>
-  <button id="n-junta" onclick="ir('junta')"><i>📊</i>Junta</button>
- </div>
- <div class="shade" id="shade" onclick="closeSheet()"></div><div class="sheet" id="sheet"></div>
+ <div class="foot3 hide" id="foot"><span class="msg" id="msg"></span><button class="save2" id="sv" disabled onclick="guardar()">Guardar</button></div>
+ <div class="nav3 hide" id="nav"></div>
  <div class="toast hide" id="toast"></div>
 </div>
-<div id="junta"><div class="dash"><div class="laptop"><div class="screen">
- <div class="dh"><div><div class="t">Junta del lunes · GDL</div><div class="s" id="jsub"></div></div>
-  <div class="sel"><select id="jej" onchange="dash()"></select><button class="b o" onclick="carga(true)">↻ Actualizar</button><button class="b" onclick="csv()">Exportar CSV</button><button class="b o" onclick="ir('semana')">‹ App</button></div></div>
- <div class="dk" id="dk"></div><div class="dg" id="dg"></div>
-</div></div></div></div>
+<div id="eq"></div>
 <script>
 // ---------- conexión: Apps Script (google.script.run dentro de Google; fetch a /exec desde la PWA) ----------
-const API='https://script.google.com/macros/s/AKfycbyjZkPCE_3q40zMWIqY7RzjNAzVgfNvu3dwSBXjwkQFtv7lPqHY-_dqWykVqTAATFeYMQ/exec';
+const API='https://script.google.com/macros/s/AKfycbyjZkPCE_3q40zMWIqY7RzjNAzVgfNvu3dwSBXjwkQFtv7lPqHY-_dqWykVqTAATFeYMQ/exec', VER='2.0', LN='data:image/png;base64,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';
 const api=(fn,...a)=>window.google&&google.script?new Promise((ok,no)=>google.script.run.withSuccessHandler(ok).withFailureHandler(no)[fn](...a))
  :fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn,args:a})}).then(r=>r.json()).then(j=>{if(j.error)throw new Error(j.error);return j.r});
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
-// ---------- constantes del mockup ----------
-const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-const fm=v=>v==null?'—':(Math.abs(v)>=1e6?'$'+(v/1e6).toFixed(1)+' M':'$'+Math.round(v/1e3).toLocaleString('es-MX')+' K');
-const pc=v=>v==null||isNaN(v)?'—':((v-1)*100>=0?'+':'')+Math.round((v-1)*100)+' %';
-const fd=s=>{if(!s)return'—';const[y,m,d]=String(s).slice(0,10).split('-');return +d+'-'+MES[+m-1]};
+const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const MOT={'Dejó de comprar':c=>`${c.dias} días sin comprar`,'Cayó fuerte':c=>`compra ${pc(c.vsP)} vs su promedio`,'Creció fuerte':c=>`compra ${pc(c.vsP)} · ¿proyecto?`,'Sigue, pero dejó una categoría':c=>`dejó ${(c.cat_dejo||'').toLowerCase()}`,'En su tendencia':c=>'recompra normal','Bajó, pero igual que el año pasado (estacional probable)':c=>'bajó como el año pasado (estacional)'};
-const BAD={'Dejó de comprar':'b-red','Cayó fuerte':'b-red','Creció fuerte':'b-grn','Sigue, pero dejó una categoría':'b-amb','En su tendencia':'b-gry'};
-const ALT=['Dejó de comprar','Cayó fuerte'];
-MOT['Agregado']=c=>c.origen==='Prospecto'?'prospecto nuevo':'agregado por ti'+(c.ej_sae&&c.ej_sae!==c.ej?' · lo lleva: '+c.ej_sae:'');BAD['Agregado']='b-gry';
-const OBJ={'Dejó de comprar':'Recuperar cliente','Cayó fuerte':'Seguimiento','Creció fuerte':'Proyecto','Sigue, pero dejó una categoría':'Venta cruzada','En su tendencia':'Seguimiento'};
-const OBJS=['Seguimiento','Entrega de muestras','Proyecto','Cobranza','Reclamación','Recuperar cliente','Venta cruzada','Presentación (nuevo)'];
-const esc_=c=>c.v12>=5e6?'A':(c.v12>=1e6?'B':'C');
-const FREQ={A:'cada 2 semanas',B:'mensual',C:'trimestral'};
-const why=c=>ALT.includes(c.tipo)?'⚠ '+MOT[c.tipo](c)+' · visitar en ≤ 2 sem':(c.tipo==='En su tendencia'?esc_(c)+' · le toca '+FREQ[esc_(c)]:(MOT[c.tipo]||(()=>c.tipo))(c));
-const dotc=c=>ALT.includes(c.tipo)?'var(--red)':(c.tipo==='En su tendencia'?'var(--teal)':'var(--amb)');
-const RAZ=['Compró','Pedido en camino','Falta de material','Precio','Calidad','Crédito','Competidor','Estacional','Su negocio bajó','Otro','No aplica'];
-const NA='No aplica',SIN_PROY=['No',NA];
-const RAZ_MALA=['Precio','Calidad','Crédito','Competidor'];
-const RAZ_VENTA=['Compró','Pedido en camino'];
-// ---------- semana actual (lunes a viernes) ----------
-const HOY=new Date();const LUN=new Date(HOY.getFullYear(),HOY.getMonth(),HOY.getDate()-((HOY.getDay()+6)%7));
+const jq=s=>esc(JSON.stringify(String(s==null?'':s)).slice(1,-1));  // texto dentro de onclick='f("...")'
+const norm=s=>(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+// ---------- fechas ----------
+const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'], DIA=['dom','lun','mar','mié','jue','vie','sáb'];
 const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-const SEMANA=iso(LUN);const DIAS=['Lun','Mar','Mié','Jue','Vie'];
-const FECH=DIAS.map((_,i)=>new Date(LUN.getFullYear(),LUN.getMonth(),LUN.getDate()+i).getDate());
-const VIE=new Date(LUN.getFullYear(),LUN.getMonth(),LUN.getDate()+4);
-const SEM_TXT=`${FECH[0]}${LUN.getMonth()!==VIE.getMonth()?' '+MES[LUN.getMonth()]:''}–${FECH[4]} ${MES[VIE.getMonth()]}`;
-const MESES_PROX=[1,2,3,4].map(k=>{const m=MES[(HOY.getMonth()+k)%12];return m[0].toUpperCase()+m.slice(1)}).concat(['No sabe',NA]);
+const dt=s=>new Date(String(s).slice(0,10)+'T12:00:00');
+const HOY=iso(new Date());
+const fd=s=>{if(!s)return'—';const d=dt(s);return DIA[d.getDay()]+' '+d.getDate()+'-'+MES[d.getMonth()]};
+const add=(s,n)=>{const d=dt(s);d.setDate(d.getDate()+n);while(d.getDay()==0||d.getDay()==6)d.setDate(d.getDate()+(n<0?-1:1));return iso(d)};
+const lunes=s=>{const d=dt(s);d.setDate(d.getDate()-((d.getDay()+6)%7));return iso(d)};
+const masDias=(s,n)=>{const d=dt(s);d.setDate(d.getDate()+n);return iso(d)};
+const fm=v=>v==null?'—':(Math.abs(v)>=1e6?'$'+(v/1e6).toFixed(1)+' M':'$'+Math.round(v/1e3).toLocaleString('es-MX')+' k');
+const pc=v=>v==null||isNaN(v)?'—':((v-1)*100>=0?'+':'')+Math.round((v-1)*100)+' %';
+const PN={GDL:'GDL',CDMX:'CDMX',PUE:'Puebla'};
+// ---------- catálogos del formulario ----------
+const MOT=['Seguimiento','Recuperar cliente','Venta cruzada','Entrega de muestra','Proyecto','Cobranza','Calidad','Reclamo','Presentación','Otro'];
+const RES=['Hizo pedido','Va a comprar','Lo está pensando','No compra','Sin novedad','No lo vi','Otro'];
+const MOTP=['Compró','Va a comprar','Precio','Falta de material','Competidor','Calidad','Crédito','Su negocio bajó','Estacional','Otro'];
+const ETAPA=['Pidió muestra','Muestra entregada','En validación','Validado, espera pedido','Compró','Se perdió'];
+const RECL=['Calidad','Entrega','Facturación','Precio','Atención','Otro'], CALP=['Adhesivo','Impresión','Corte o medida','Material dañado','Otro'];
+const COB=['Paga esta semana','Paga este mes','Sin compromiso'];
+const MESES=['Este mes',...[1,2,3].map(k=>{const m=MES[(new Date().getMonth()+k)%12];return m[0].toUpperCase()+m.slice(1)}),'No sabe'];
+const SIG=[['Visita','en 1 semana',7],['Llamada','mañana',1],['Llamada','en 2 semanas',14],['Enviar muestra','en 3 días',3],['Enviar cotización','en 2 días',2],['Visita','en 1 mes',30],['Nada por ahora','',0]];
+const sigL=s=>s[0]+(s[1]?' '+s[1]:'');
+const TAB_RES=['Hizo pedido','Va a comprar','Lo está pensando','No compra'];
+const ALT=['Dejó de comprar','Cayó fuerte'];
+const tagT=t=>({'Dejó de comprar':'r','Cayó fuerte':'r','Sigue, pero dejó una categoría':'a','Creció fuerte':'g','Agregado':'b'}[t]||'s');
+const porque=c=>c.tipo==='Dejó de comprar'?`${c.dias} días sin comprar`:c.tipo==='Cayó fuerte'?`compra ${pc(c.vsP)} vs su promedio`:c.tipo==='Sigue, pero dejó una categoría'?`dejó ${(c.cat_dejo||'').toLowerCase()}`:c.tipo==='Creció fuerte'?`compra ${pc(c.vsP)} · ¿proyecto?`:c.tipo==='Agregado'?(c.origen==='Prospecto'?'prospecto nuevo':'agregado por ti'):c.dias!=null?`última compra hace ${c.dias} días`:'';
+const sugiere=c=>!c?'Seguimiento':ALT.includes(c.tipo)?'Recuperar cliente':c.tipo==='Sigue, pero dejó una categoría'?'Venta cruzada':c.tipo==='Creció fuerte'?'Proyecto':c.origen==='Prospecto'?'Presentación':'Seguimiento';
 // ---------- estado ----------
-let D=null,V=[],AGALL=[],CLAVE=ls.get('bp_clave',''),EJ=ls.get('bp_ej',''),scr='semana',cur=-1,F=null,taps=0,dia=Math.min(4,(HOY.getDay()+6)%7),SH=null,ultimo=null;
+let HECHO='',D=null,V=[],K=[],PLAZA=ls.get('bp_plaza','GDL'),PLAZAS=[],ROL='vendedor',CLAVE=ls.get('bp_clave',''),EJ=ls.get('bp_ej',''),
+ vista='dia',S={},cli=null,from=null,aw=null,ficha=null,semana=lunes(HOY),selD=HOY,lastK='';
+const PRUEBA='Vendedor Prueba', real=e=>e!==PRUEBA;
+const toast=t=>{const e=$('toast');e.textContent=t;e.classList.remove('hide');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.add('hide'),2600)};
 // ---------- clientes agregados y vendedor de prueba ----------
-const PRUEBA='Vendedor Prueba';
-const real=e=>e!==PRUEBA;
-function mkCli(x){const m=D.clientes[0].meses;return {pz:'GD',tipo:'Agregado',plan:x.origen==='Prospecto'?'Prospecto nuevo: presentación y muestras':'Cliente agregado por el ejecutivo · sin análisis del piloto',
- v12:0,r90:0,a90:0,vsP:null,vsA:null,dias:null,saldo:0,lim:0,cred_tope:false,cat_dejo:null,cat_dejo_v:0,en62:false,perd:0,meses:m,serie:m.map(()=>0),productos:[],cats:[],huecos:[],ult_compra:x.ult||null,
+function mkCli(x){const m=D.clientes[0]?D.clientes[0].meses:[];return {pz:'',tipo:'Agregado',plan:x.origen==='Prospecto'?'Prospecto nuevo: presentación y muestras':'Cliente agregado por el vendedor · sin análisis del plan',
+ v12:null,r90:null,a90:null,vsP:null,vsA:null,dias:null,saldo:0,lim:0,cred_tope:false,cat_dejo:null,cat_dejo_v:0,meses:m,serie:m.map(()=>0),productos:[],cats:[],huecos:[],ult_compra:x.ult||null,
  cli:x.cli,nombre:x.nombre,ej:x.ej,origen:x.origen,ej_sae:x.ej_sae}}
-// si ya es cliente de otro ejecutivo se copia con su análisis; si no, ficha vacía
-function addExtra(x){if(!D.clientes.some(c=>c.cli===x.cli&&c.ej===x.ej)){const b=D.clientes.find(c=>c.cli===x.cli);D.clientes.push(b?Object.assign({},b,{ej:x.ej,tipo:'Agregado',perd:0,origen:x.origen,ej_sae:b.ej}):mkCli(x))}}
-// copias de 8 clientes reales (clave PRUEBA-…) para practicar sin ensuciar la cartera ni la junta
+function addExtra(x){if(!D.clientes.some(c=>c.cli===x.cli&&c.ej===x.ej)){const b=D.clientes.find(c=>c.cli===x.cli);D.clientes.push(b?Object.assign({},b,{ej:x.ej,tipo:'Agregado',origen:x.origen||'SAE',ej_sae:b.ej}):mkCli(x))}}
+// copias de 8 clientes reales (clave PRUEBA-…) para practicar sin ensuciar la cartera ni los reportes
 function armaPrueba(){if(D.clientes.some(c=>c.ej===PRUEBA))return;const t={};
  D.clientes.filter(c=>c.tipo!=='Agregado'&&(t[c.tipo]=(t[c.tipo]||0)+1)<=2).slice(0,8).forEach(c=>D.clientes.push(Object.assign({},c,{cli:'PRUEBA-'+c.cli,nombre:c.nombre+' (prueba)',ej:PRUEBA})))}
-function prepara(extra){armaPrueba();(extra||[]).forEach(addExtra);ls.get('bp_cola_cli',[]).forEach(addExtra)}
-const mis=()=>D.clientes.map((c,i)=>[c,i]).filter(([c])=>c.ej===EJ);
-const AG=()=>{const o={};AGALL.filter(a=>a.ej===EJ).forEach(a=>{const i=D.clientes.findIndex(c=>c.cli===a.cli);if(i>=0)o[i]=a});return o};
-const enSemana=v=>new Date(v.ts)>=LUN;
-const hechosDe=ej=>new Set(V.filter(v=>v.ej===ej&&enSemana(v)).map(v=>v.cli));
-const toast=t=>{const e=document.getElementById('toast');e.textContent=t;e.classList.remove('hide');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.add('hide'),2600)};
+function prepara(extra){armaPrueba();(extra||[]).forEach(addExtra);ls.get('bp_cola_cli',[]).filter(x=>(x.plaza||'GDL')===PLAZA).forEach(addExtra)}
+const EJS=()=>[...new Set(D.clientes.filter(c=>c.tipo!=='Agregado').map(c=>c.ej))].filter(real).sort();
+const MIS=()=>D.clientes.filter(c=>c.ej===EJ);
+const byC=c=>D.clientes.find(x=>x.cli===c&&x.ej===EJ)||D.clientes.find(x=>x.cli===c)||D.directorio.find(x=>x.cli===c)||{cli:c,nombre:c,tipo:'',productos:[]};
+const nom=c=>byC(c).nombre;
+const misV=()=>V.filter(v=>v.ej===EJ), misK=()=>K.filter(k=>k.ej===EJ&&k.st!=='cancelada'&&k.st!=='pasada');
 // ---------- carga ----------
 async function carga(silencio){
  if(!CLAVE){pideClave(false);return}
- if(ls.get('bp_agenda_pend',0)){const c=ls.get('bp_cache',null);if(c&&EJ){try{await api('guardarAgenda',CLAVE,EJ,SEMANA,c.AGALL.filter(a=>a.ej===EJ));ls.del('bp_agenda_pend')}catch(e){}}}
- try{const r=await api('cargar',CLAVE,SEMANA);D=r.datos;V=r.visitas;AGALL=r.agenda;prepara(r.extra);ls.set('bp_clave',CLAVE);ls.set('bp_cache',{D,V,AGALL})}
+ try{const r=await api('cargar',CLAVE,PLAZA);D=r.datos;V=r.visitas;K=r.citas;PLAZA=r.plaza;PLAZAS=r.plazas;ROL=r.rol;prepara(r.extra);
+  ls.set('bp_clave',CLAVE);ls.set('bp_plaza',PLAZA);ls.set('bp_cache2',{D,V,K,PLAZA,PLAZAS,ROL,ex:r.extra})}
  catch(e){if(String(e&&e.message||e).includes('clave')){ls.del('bp_clave');CLAVE='';pideClave(true);return}
-  const c=ls.get('bp_cache',null);if(!c){document.getElementById('scr').innerHTML='<div class="load">Sin conexión. Vuelve a intentar con señal.</div>';return}D=c.D;V=c.V;AGALL=c.AGALL;prepara([]);toast('Sin conexión: datos guardados en el teléfono')}
- await reenvia();if(silencio)toast('Actualizado');pinta()}
-function pideClave(mala){document.getElementById('ah').innerHTML='<div class="t">Business Plan · GDL</div><div class="s">piloto · semana '+SEM_TXT+'</div>';document.getElementById('nav').classList.add('hide');
- document.getElementById('scr').innerHTML=`<div class="login"><div class="q">Clave de acceso</div>${mala?'<div style="color:var(--red);font-size:12px">Clave incorrecta</div>':''}<input class="t" id="clv" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')entra()"><div style="height:12px"></div><button class="btn" onclick="entra()">Entrar</button></div>`}
-function entra(){CLAVE=document.getElementById('clv').value.trim();if(!CLAVE)return;document.getElementById('scr').innerHTML='<div class="load">Cargando…</div>';carga()}
-async function reenvia(){const qc=ls.get('bp_cola_cli',[]);if(qc.length){const r2=[];for(const x of qc){try{await api('agregarCliente',CLAVE,x)}catch(e){r2.push(x)}}ls.set('bp_cola_cli',r2)}
- const q=ls.get('bp_cola',[]);if(!q.length)return;const resto=[];
- for(const b of q){try{const j=await api('guardar',CLAVE,b);if(j.ok){V=V.filter(v=>v.id!==b._tmp);V.unshift(j.item)}}catch(e){resto.push(b)}}
- ls.set('bp_cola',resto);if(q.length>resto.length)toast((q.length-resto.length)+' visita(s) pendiente(s) enviadas')}
+  const c=ls.get('bp_cache2',null);if(!c){$('scr').innerHTML='<div class="load">Sin conexión. Vuelve a intentar con señal.</div>';return}
+  ({D,V,K,PLAZA,PLAZAS,ROL}=c);prepara(c.ex);toast('Sin conexión: datos guardados en el teléfono')}
+ colaLocal();await reenvia();if(silencio)toast('Actualizado');
+ if(EJ&&!D.clientes.some(c=>c.ej===EJ)&&EJ!==PRUEBA){EJ='';ls.del('bp_ej')}
+ if(ROL!=='vendedor'&&!EJ)vista='equipo';pinta()}
+function pideClave(mala){$('nav').classList.add('hide');$('foot').classList.add('hide');
+ $('ah').innerHTML='<div class="t">Business Plan</div><div class="s">ARclad · GDL · CDMX · Puebla</div>';
+ $('scr').innerHTML=`<div class="login"><div class="q">Clave de acceso</div>${mala?'<div style="color:var(--red);font-size:12px;margin-bottom:6px">Clave incorrecta</div>':''}<input class="txt" style="margin:0;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:#fff" id="clv" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')entra()"><div style="height:12px"></div><button class="save2" style="width:100%" onclick="entra()">Entrar</button>
+ <div class="empty" style="margin-top:14px">La clave te la da tu gerente. Cada sucursal tiene la suya.</div></div>`}
+function entra(){CLAVE=$('clv').value.trim();if(!CLAVE)return;$('scr').innerHTML='<div class="load">Cargando…</div>';carga()}
+function salir(){if(!confirm('¿Salir? Se borra la clave de este teléfono.'))return;ls.del('bp_clave');ls.del('bp_ej');CLAVE='';EJ='';D=null;pideClave(false)}
+// visitas, citas y altas hechas sin señal: se muestran ya y se mandan al volver la señal
+function colaLocal(){const q=ls.get('bp_cola',[]).filter(b=>b.plaza===PLAZA);q.forEach(b=>{if(!V.some(v=>v.op===b.op))V.unshift(Object.assign({id:'tmp',ts:new Date().toISOString(),pend:1},b))});
+ ls.get('bp_cola_cita',[]).filter(c=>c.plaza===PLAZA).forEach(c=>{const i=K.findIndex(k=>k.id===c.id);if(i>=0)K[i]=c;else K.push(c)})}
+let enviando=false;
+async function reenvia(){if(enviando||!CLAVE)return;enviando=true;let n=0;
+ try{const qc=ls.get('bp_cola_cli',[]);if(qc.length){const r2=[];for(const x of qc){try{await api('agregarCliente',CLAVE,x)}catch(e){r2.push(x)}}ls.set('bp_cola_cli',r2)}
+  const qk=ls.get('bp_cola_cita',[]);if(qk.length){const r2=[];for(const c of qk){try{await api('guardarCita',CLAVE,c)}catch(e){r2.push(c)}}ls.set('bp_cola_cita',r2)}
+  const q=ls.get('bp_cola',[]);const resto=[];
+  for(const b of q){try{const j=await api('guardar',CLAVE,b);if(j.ok){n++;const i=V.findIndex(v=>v.op===b.op);if(j.item){if(i>=0)V[i]=j.item;}else if(i>=0)V[i].pend=0;if(j.cita&&!K.some(k=>k.id===j.cita.id)){K=K.filter(k=>!(k.tmp&&k.op===b.op));K.push(j.cita)}}}catch(e){resto.push(b)}}
+  ls.set('bp_cola',resto)}finally{enviando=false}
+ if(n){toast(n+' visita(s) enviada(s)');if(D&&vista!=='hecho')pinta()}}
+addEventListener('online',reenvia);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')reenvia()});
+const porEnviar=()=>ls.get('bp_cola',[]).length+ls.get('bp_cola_cita',[]).length;
 // ---------- navegación ----------
-function ir(s){scr=s;closeSheet();pinta();const e=document.getElementById('scr');if(e)e.scrollTop=0}
-function pinta(){
- if(!D)return;document.body.classList.toggle('wide',scr==='junta');
- if(scr==='junta')return dash();
+function ir(v){vista=v;ficha=null;aw=null;if(v!=='reg'){S={};cli=null;from=null}pinta()}
+function quien(){$('nav').classList.add('hide');$('foot').classList.add('hide');$('prb').classList.add('hide');document.body.classList.remove('wide');
+ $('ah').innerHTML=`<div class="t">Business Plan · ${PN[PLAZA]}</div><div class="s">${ROL==='vendedor'?'¿Quién eres?':'Ver la app como…'}</div>`;
+ const ejs=EJS().concat([PRUEBA]);
+ $('scr').innerHTML=`<div class="login"><div class="q">${ROL==='vendedor'?'¿Quién eres?':'¿Qué vendedor quieres ver?'}</div>${ejs.map(e=>`<button class="chip" onclick='setEj("${jq(e)}")'>${esc(e)} <span style="color:var(--mut);font-weight:500">· ${e===PRUEBA?'para practicar · no cuenta en reportes':D.clientes.filter(c=>c.ej===e).length+' clientes'}</span></button>`).join('')}
+ ${ROL!=='vendedor'?`<button class="chip" onclick="ir('equipo')">Volver a Equipo</button>`:''}<div class="empty" style="margin-top:10px"><a onclick="salir()" style="color:var(--mut);text-decoration:underline;cursor:pointer">Salir de este teléfono</a></div></div>`}
+function setEj(e){EJ=e;ls.set('bp_ej',e);ir('dia')}
+function cambia(){EJ='';ls.del('bp_ej');pinta()}
+function nav(){const b=(k,t)=>`<button id="b-${k}" class="${vista===k&&!ficha?'on':''}" onclick="ir('${k}')"><span></span>${t}</button>`;
+ $('nav').innerHTML=(ROL!=='vendedor'?b('equipo','Equipo'):'')+b('dia','Mi día')+b('agenda','Agenda')+`<button class="reg" onclick="nuevo()"><b>+ Registrar</b></button>`+b('res',ROL==='vendedor'?'Mi resumen':'Resumen');
+ $('nav').classList.remove('hide')}
+function head(){let h;const w0=lunes(HOY),es=misK().filter(a=>a.f>=w0&&a.f<=masDias(w0,4)),he=es.filter(a=>a.st==='hecha').length;
+ const T={dia:['Mi día · '+fd(HOY),'datos al '+fd(D.corte)],agenda:['Agenda','Planea tu semana'],reg:['Registrar visita',PN[PLAZA]],hecho:['Registrar visita',PN[PLAZA]],res:['Mi resumen','semana del '+fd(w0)],clientes:['Mis clientes',MIS().length+' en tu plan']}[vista]||['',''];
+ h=`<div class="t">${T[0]}</div><div class="s">${T[1]} · v${VER}</div><div class="who" onclick="cambia()">${esc(EJ)} ▾</div>`;
+ if(vista==='dia')h+=`<div class="s" style="margin-top:8px;color:#fff">Semana: <b>${he} de ${es.length}</b> citas hechas</div><div class="prog"><i style="width:${es.length?he/es.length*100:0}%"></i></div>`;
+ if(ficha)h=`<div class="back" style="color:var(--mint);font-size:12px;cursor:pointer" onclick="ficha=null;pinta()">‹ Regresar</div><div class="t">${esc(nom(ficha))}</div><div class="s">Rayos X · ${esc(ficha)}</div>`;
+ $('ah').innerHTML=h}
+function pinta(){if(!D)return;
+ if(vista==='equipo'&&ROL!=='vendedor'){document.body.classList.add('wide');return equipo()}
+ document.body.classList.remove('wide');
  if(!EJ)return quien();
- ['plan','semana','junta'].forEach(k=>document.getElementById('n-'+k).classList.toggle('on',k===scr||(k==='semana'&&['resumen','registro','listo','nuevo'].includes(scr))));
- document.getElementById('nav').classList.remove('hide');document.getElementById('foot').classList.add('hide');
- ({plan:s0,semana:s1,resumen:s2,registro:s3,listo:s4,nuevo:s5})[scr]()}
-function hdr(t,s,back,prog){document.getElementById('ah').innerHTML=`${back?`<div class="back" onclick="ir('${back[0]}')">‹ ${back[1]}</div>`:''}<div class="row"><div><div class="t">${t}</div><div class="s">${s}</div></div>${back?'':`<div class="who" onclick="cambia()">${esc(EJ)} ▾</div>`}</div>${prog!=null?`<div class="prog"><i style="width:${prog}%"></i></div>`:''}`}
-function foot(h){const f=document.getElementById('foot');f.innerHTML=h;f.classList.remove('hide')}
-function quien(){document.getElementById('nav').classList.add('hide');document.getElementById('foot').classList.add('hide');
- document.getElementById('ah').innerHTML='<div class="t">Business Plan · GDL</div><div class="s">piloto · semana '+SEM_TXT+'</div>';
- const ejs=[...new Set(D.clientes.map(c=>c.ej))].filter(real).concat([PRUEBA]);
- document.getElementById('scr').innerHTML=`<div class="login"><div class="q">¿Quién eres?</div>${ejs.map(e=>`<button class="chip" onclick="setEj('${esc(e)}')">${e===PRUEBA?'🧪 ':''}${esc(e)} <span style="color:var(--mut);font-weight:500">· ${e===PRUEBA?'para practicar · no cuenta en la junta':D.clientes.filter(c=>c.ej===e).length+' clientes'}</span></button>`).join('')}<div style="height:10px"></div><button class="chip" onclick="ir('junta')">📊 Solo ver la Junta (gerente)</button></div>`}
-function setEj(e){EJ=e;ls.set('bp_ej',e);ir('plan')}
-function cambia(){EJ='';ls.del('bp_ej');ir('semana')}
-// ---------- 0 · Planear mi semana ----------
-function s0(){const ag=AG(),M=mis(),n=Object.keys(ag).length;
- hdr('Planear mi semana',`semana ${SEM_TXT} · ${n} de ${M.length} agendados`,null,M.length?100*n/M.length:0);
- const cnt=d=>Object.values(ag).filter(a=>a.d===d).length;
- let h=`<div class="days">${DIAS.map((d,i)=>`<button class="${i===dia?'on':''}" onclick="dia=${i};s0()">${d}<small>${FECH[i]} · ${cnt(i)}</small></button>`).join('')}</div>`;
- const hoy=Object.entries(ag).filter(([i,a])=>a.d===dia).sort((x,y)=>x[1].h.localeCompare(y[1].h));
- h+=hoy.length?hoy.map(([i,a])=>`<div class="ag"><div class="h">${a.h==='Mañana'?'☀ mañ':'◐ tarde'}</div><div><b>${esc(D.clientes[i].nombre)}</b><br><span class="why">${esc(a.t)} · ${esc(a.o)}</span></div><span class="x" onclick="quita(${i})">×</span></div>`).join(''):`<div class="empty">Nada agendado el ${DIAS[dia].toLowerCase()} · toca “+ Agendar” abajo</div>`;
- const sug=M.filter(([c,i])=>!(i in ag));
- h+=`<button class="addp" onclick="ir('nuevo')">+ Agregar cliente que no está en la lista</button>`;
- h+=`<div class="sec">Sugeridos por el sistema · ${sug.length}</div>`+sug.map(([c,i])=>`<div class="it" style="cursor:default"><div class="dot" style="background:${dotc(c)}"></div><div style="min-width:0"><div class="n">${esc(c.nombre)}</div><div class="why">${esc(why(c))}</div></div><button class="add" onclick="openSheet(${i})">+ Agendar</button></div>`).join('');
- document.getElementById('scr').innerHTML=h}
-function openSheet(i){const c=D.clientes[i];SH={i,d:dia,h:'Mañana',t:'Visita',o:OBJ[c.tipo]||'Seguimiento'};drawSheet();document.getElementById('sheet').classList.add('on');document.getElementById('shade').classList.add('on')}
-function closeSheet(){const s=document.getElementById('sheet');if(s){s.classList.remove('on');document.getElementById('shade').classList.remove('on')}}
-function sh(k,v){SH[k]=v;drawSheet()}
-function ch(k,opts,lab){return `<div class="chips">${opts.map((o,j)=>`<button class="chip ${SH[k]===(k==='d'?j:o)?'on':''}" onclick="sh('${k}',${k==='d'?j:`'${o}'`})">${lab?lab[j]:o}</button>`).join('')}</div>`}
-function drawSheet(){const c=D.clientes[SH.i];document.getElementById('sheet').innerHTML=`<div class="grab"></div><div style="font-weight:800;font-size:15px">${esc(c.nombre)}</div><div class="why">${esc(why(c))} · ${esc(c.pz)}</div>
-<div class="q">¿Qué día?</div>${ch('d',[0,1,2,3,4],DIAS.map((d,j)=>d+' '+FECH[j]))}<div class="q">¿A qué hora?</div>${ch('h',['Mañana','Tarde'])}
-<div class="q">¿Cómo?</div>${ch('t',['Visita','Llamada','WhatsApp'])}<div class="q">¿A qué voy? <small>sugerido por el sistema</small></div>${ch('o',OBJS)}
-<div style="height:12px"></div><button class="btn" onclick="agenda()">Agendar · ${DIAS[SH.d]} ${SH.h.toLowerCase()}</button>`}
-function agenda(){const c=D.clientes[SH.i];AGALL=AGALL.filter(a=>!(a.ej===EJ&&a.cli===c.cli));AGALL.push({ej:EJ,cli:c.cli,d:SH.d,h:SH.h,t:SH.t,o:SH.o});dia=SH.d;closeSheet();s0();subeAgenda()}
-function quita(i){const c=D.clientes[i];AGALL=AGALL.filter(a=>!(a.ej===EJ&&a.cli===c.cli));s0();subeAgenda()}
-async function subeAgenda(){const items=AGALL.filter(a=>a.ej===EJ);ls.set('bp_cache',{D,V,AGALL});
- try{await api('guardarAgenda',CLAVE,EJ,SEMANA,items)}catch(e){toast('Sin conexión: la agenda se guarda al volver la señal');ls.set('bp_agenda_pend',1)}}
-// ---------- 1 · Mi semana ----------
-function s1(){const ag=AG(),M=mis(),he=hechosDe(EJ);
- hdr('Mi semana',`${esc(EJ)} · GDL · semana ${SEM_TXT}`,null,M.length?100*[...he].filter(k=>M.some(([c])=>c.cli===k)).length/M.length:0);
- let h='';const grp=[...DIAS.map((d,j)=>[d+' '+FECH[j],j]),['Sin agendar',-1]];
- grp.forEach(([g,j])=>{const cs=M.filter(([c,i])=>j<0?!(i in ag):(i in ag&&ag[i].d===j));if(!cs.length)return;h+=`<div class="sec">${g} · ${cs.length}</div>`;
-  cs.forEach(([c,i])=>h+=`<div class="it" onclick="abre(${i})"><div class="dot" style="background:${dotc(c)}"></div><div style="min-width:0"><div class="n">${esc(c.nombre)}</div><div class="m">${i in ag?esc(ag[i].t+' · '+ag[i].o):esc((MOT[c.tipo]||(()=>c.tipo))(c))}</div></div><div class="r">${he.has(c.cli)?'<span class="ok">✓</span>':`<b>${fm(c.v12)}</b>12 m`}</div></div>`)});
- document.getElementById('scr').innerHTML=(h||'<div class="empty">Sin clientes asignados</div>')+`<button class="addp" onclick="ir('nuevo')">+ Agregar cliente que no está en la lista</button>`}
-function abre(i){cur=i;ir('resumen')}
-// ---------- 2 · Resumen del cliente ----------
-function spark(c){const mx=Math.max(...c.serie,1),w=300,hh=70,bw=w/c.serie.length;
+ $('prb').classList.toggle('hide',EJ!==PRUEBA);
+ const k=vista+'|'+(cli&&cli.cli)+'|'+ficha+'|'+(aw?1:0)+'|'+(aw&&aw.cli?1:0),st=$('scr').scrollTop;
+ head();nav();$('foot').classList.toggle('hide',!(vista==='reg'&&cli&&!ficha));
+ $('scr').innerHTML=(ficha?fichaH():vista==='hecho'?HECHO:vista==='dia'?dia():vista==='agenda'?agenda():vista==='reg'?reg():vista==='clientes'?clientes():res())+`<div class="foot-lcg"><img src="${LN}" alt="London Consulting Group"></div>`;
+ if(vista==='reg'&&cli&&!ficha)upd();$('scr').scrollTop=k===lastK?st:0;lastK=k;const q=$('q');if(q&&!q.value)q.focus()}
+// ---------- tarjetas ----------
+function card(a,o={}){const c=byC(a.cli),venc=a.st==='pendiente'&&a.f<HOY;
+ return `<div class="crd ${a.st==='hecha'?'ok':''}"><div class="n" onclick='verFicha("${jq(a.cli)}")'>${esc(c.nombre)}</div>
+ <div class="m"><span class="tg b">${esc(a.mot)}</span>${esc(a.tipo)}${a.h?' · '+esc(a.h):''}${o.fecha?' · '+fd(a.f):''}${a.org==='Siguiente paso'?' <span class="tg a">acordado</span>':''}${venc?' <span class="tg r">atrasada</span>':''}</div>
+ ${a.nota?`<div class="m" style="color:var(--body)">${esc(a.nota)}</div>`:''}
+ ${a.st==='pendiente'?`<div class="acts"><button class="p" onclick='nuevo("${jq(a.cli)}","${a.id}")'>Registrar</button><button onclick="mover('${a.id}')">Pasar a mañana</button><button class="g" onclick="cancela('${a.id}')">Quitar</button></div>`:'<div class="m" style="color:var(--teal);font-weight:800;margin-top:4px">Registrada</div>'}</div>`}
+function subeCita(c){c.plaza=PLAZA;const i=K.findIndex(k=>k.id===c.id);if(i>=0)K[i]=c;else K.push(c);
+ const q=ls.get('bp_cola_cita',[]).filter(x=>x.id!==c.id);q.push(c);ls.set('bp_cola_cita',q);reenvia()}
+function mover(id){const a=Object.assign({},K.find(z=>z.id===id));a.f=add(a.f<HOY?HOY:a.f,1);subeCita(a);toast('Movida a '+fd(a.f));pinta()}
+function cancela(id){if(!confirm('¿Quitar esta cita de tu agenda?'))return;const a=Object.assign({},K.find(z=>z.id===id),{st:'cancelada'});subeCita(a);pinta()}
+const visto=(c,d)=>misV().some(v=>v.cli===c&&v.ts.slice(0,10)>=masDias(HOY,-d));
+function sinCita(){const con=new Set(misK().filter(a=>a.st==='pendiente').map(a=>a.cli));return MIS().filter(x=>ALT.includes(x.tipo)&&!con.has(x.cli)&&!visto(x.cli,30))}
+// ---------- Mi día ----------
+function dia(){const K0=misK(),hoy=K0.filter(a=>a.f===HOY).sort((a,b)=>a.st===b.st?0:a.st==='pendiente'?-1:1),atr=K0.filter(a=>a.st==='pendiente'&&a.f<HOY),sc=sinCita();
+ let h='';const pe=porEnviar();if(pe)h+=`<div class="pend" onclick="reenvia()">${pe} registro(s) por enviar · se mandan solos al tener señal (toca para reintentar)</div>`;
+ h+=`<div class="hd2"><span>Hoy · ${hoy.filter(a=>a.st==='pendiente').length} pendientes</span></div>`+(hoy.length?hoy.map(a=>card(a)).join(''):'<div class="crd"><div class="m">Nada agendado hoy. Agenda desde la pestaña Agenda o registra una visita con "+ Registrar".</div></div>');
+ if(atr.length)h+=`<div class="hd2"><span>Atrasadas · ${atr.length}</span></div>`+atr.map(a=>card(a,{fecha:1})).join('');
+ if(sc.length)h+=`<div class="hd2"><span>Clientes en alerta sin cita · ${sc.length}</span></div>`+sc.slice(0,5).map(x=>`<div class="crd"><div class="n" onclick='verFicha("${jq(x.cli)}")'>${esc(x.nombre)}</div>
+  <div class="m"><span class="tg ${tagT(x.tipo)}">${esc(x.tipo)}</span>${esc(porque(x))}</div><div class="acts"><button class="p" onclick='agendar("${jq(x.cli)}")'>Agendar</button><button onclick='nuevo("${jq(x.cli)}")'>Registrar ya</button></div></div>`).join('');
+ const px=K0.filter(a=>a.st==='pendiente'&&a.f>HOY).sort((a,b)=>a.f<b.f?-1:1).slice(0,3);
+ if(px.length)h+=`<div class="hd2"><span>Próximas</span><span style="color:var(--teal);cursor:pointer" onclick="ir('agenda')">Ver agenda ›</span></div>`+px.map(a=>`<div class="crd"><div class="n" onclick='verFicha("${jq(a.cli)}")'>${esc(nom(a.cli))}</div><div class="m">${fd(a.f)} · <span class="tg b">${esc(a.mot)}</span>${esc(a.tipo)}</div></div>`).join('');
+ h+=`<button class="btn2" onclick="ir('clientes')">Ver mis ${MIS().length} clientes</button>`;return h}
+function clientes(){const ord={'Dejó de comprar':0,'Cayó fuerte':1,'Sigue, pero dejó una categoría':2,'Creció fuerte':3,'Agregado':5};
+ return MIS().slice().sort((a,b)=>(ord[a.tipo]??4)-(ord[b.tipo]??4)||(b.v12||0)-(a.v12||0)).map(x=>`<div class="crd"><div class="n" onclick='verFicha("${jq(x.cli)}")'>${esc(x.nombre)}</div>
+ <div class="m"><span class="tg ${tagT(x.tipo)}">${esc(x.tipo)}</span>${esc(porque(x))}${x.v12?' · '+fm(x.v12)+' en 12 m':''}${visto(x.cli,30)?' · <b style="color:var(--teal)">visitado</b>':''}</div>
+ <div class="acts"><button class="p" onclick='nuevo("${jq(x.cli)}")'>Registrar</button><button onclick='agendar("${jq(x.cli)}")'>Agendar</button></div></div>`).join('')||'<div class="empty">Sin clientes</div>'}
+// ---------- Agenda ----------
+function agendar(c){vista='agenda';ficha=null;const x=c?byC(c):null;aw={cli:x,f:HOY,h:'Mañana',tipo:'Visita',mot:sugiere(x),nota:''};pinta()}
+function agenda(){if(aw)return agendaForm();
+ const ds=[0,1,2,3,4].map(i=>masDias(semana,i)),sd=ds.includes(selD)?selD:(ds.includes(HOY)?HOY:ds[0]),K0=misK();
+ let h=`<div style="display:flex;justify-content:space-between;align-items:center;margin:2px 4px 6px"><span style="color:var(--teal);font-weight:800;font-size:12px;cursor:pointer" onclick="semana=masDias(semana,-7);pinta()">‹ Anterior</span><b style="font-size:12.5px">Semana del ${fd(semana)}</b><span style="color:var(--teal);font-weight:800;font-size:12px;cursor:pointer" onclick="semana=masDias(semana,7);pinta()">Siguiente ›</span></div>`;
+ h+='<div class="days">'+ds.map(f=>{const n=K0.filter(a=>a.f===f).length;return `<div class="${f===sd?'on':''} ${f===HOY?'hoy':''}" onclick="selD='${f}';pinta()">${DIA[dt(f).getDay()]}<b>${dt(f).getDate()}</b><i>${n?n+' cita'+(n>1?'s':''):'—'}</i></div>`}).join('')+'</div>';
+ const L=K0.filter(a=>a.f===sd);
+ h+=`<div class="hd2"><span>${fd(sd)} · ${L.length} citas</span></div>`+(L.length?L.map(a=>card(a)).join(''):'<div class="crd"><div class="m">Sin citas este día.</div></div>');
+ return h+`<button class="btn2" onclick="agendar()">+ Agendar cita</button>`}
+function agendaForm(){let h='';
+ if(!aw.cli)return buscador('agc')+`<button class="btn2" onclick="aw=null;pinta()">Cancelar</button>`;
+ h+=`<div class="selc"><div><b>${esc(aw.cli.nombre)}</b><small>${esc(aw.cli.cli)} · ${esc(aw.cli.tipo||'')}</small></div><a onclick="aw.cli=null;pinta()">Cambiar</a></div>`;
+ const ds=[];for(let i=0,f=dt(HOY).getDay()%6?HOY:add(HOY,1);i<15;i++,f=add(f,1))ds.push(f);
+ h+=Q(1,'¿Qué día?',`<select class="sel2" onchange="aw.f=this.value">`+ds.map(f=>`<option value="${f}" ${aw.f===f?'selected':''}>${f===HOY?'Hoy · ':f===add(HOY,1)?'Mañana · ':''}${fd(f)}</option>`).join('')+'</select>');
+ h+=Q(2,'¿A qué hora?',R('aw','h',['Mañana','Tarde'],2));
+ h+=Q(3,'¿Cómo?',R('aw','tipo',['Visita','Llamada','WhatsApp'],3));
+ h+=Q(4,'¿A qué vas?',R('aw','mot',MOT,2),true,'Sugerido por su alerta: '+sugiere(aw.cli));
+ h+=Q(5,'Comentario',`<input class="txt" placeholder="Opcional" value="${esc(aw.nota)}" oninput="aw.nota=this.value">`,false);
+ return h+`<button class="save2" id="awb" style="width:100%;margin-top:4px" ${okAw()?'':'disabled'} onclick="guardaCita()">Agendar</button><button class="btn2" onclick="aw=null;pinta()">Cancelar</button>`}
+const okAw=()=>aw.mot&&!(aw.mot==='Otro'&&!aw.motx);
+function chkAw(){const b=$('awb');if(b)b.disabled=!okAw()}
+function guardaCita(){if(!okAw())return;ponCliente(aw.cli);
+ const c={id:'k'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),f:aw.f||HOY,ej:EJ,cli:aw.cli.cli,h:aw.h,tipo:aw.tipo,mot:val(aw,'mot'),nota:aw.nota||'',org:'Agenda',st:'pendiente'};
+ subeCita(c);selD=c.f;semana=lunes(c.f);toast('Agendado: '+fd(c.f));aw=null;pinta()}
+// cliente de otro vendedor, del directorio o prospecto: se agrega a su lista
+function ponCliente(x){if(!x||D.clientes.some(c=>c.cli===x.cli&&c.ej===EJ))return;
+ const o={cli:x.cli,nombre:x.nombre,ej:EJ,origen:x.origen==='Prospecto'?'Prospecto':'SAE',ej_sae:x.ej||'',nota:'',plaza:PLAZA};addExtra(o);
+ if(EJ===PRUEBA)return;const q=ls.get('bp_cola_cli',[]);q.push(o);ls.set('bp_cola_cli',q);reenvia()}
+// ---------- buscador de clientes ----------
+function buscador(k){return `<div class="srch"><input id="q" placeholder="Buscar cliente por nombre o clave" autocomplete="off" oninput="buscar(this.value,'${k}')"><div class="res" id="res"></div></div>
+ <div class="qnote" style="margin:4px 4px 10px">Busca en tus clientes, en los de otros vendedores de ${PN[PLAZA]} y en el directorio (compraron en 24 meses).</div>`}
+let PROS={};
+function buscar(q,k){const n=norm(q).trim();if(n.length<2){$('res').innerHTML='';return}
+ const m=x=>norm(x.nombre).includes(n)||norm(x.cli).includes(n), it=(x,s)=>`<div onclick='elige("${jq(x.cli)}","${k}")'>${esc(x.nombre)}<small>${esc(x.cli)}${s?' · '+esc(s):''}</small></div>`;
+ const a=MIS().filter(m).slice(0,6),b=D.clientes.filter(x=>x.ej!==EJ&&real(x.ej)&&x.tipo!=='Agregado'&&m(x)&&!a.some(y=>y.cli===x.cli)).slice(0,4),c=D.directorio.filter(m).slice(0,6);let h='';
+ if(a.length)h+='<div class="grp">Mis clientes</div>'+a.map(x=>it(x,x.tipo)).join('');
+ if(b.length)h+='<div class="grp">De otro vendedor</div>'+b.map(x=>it(x,'lo lleva '+x.ej)).join('');
+ if(c.length)h+='<div class="grp">Directorio '+PN[PLAZA]+'</div>'+c.map(x=>it(x,x.ej)).join('');
+ h+=`<div onclick="prospecto('${k}')"><b style="color:var(--teal)">+ Agregar "${esc(q.trim())}" como prospecto nuevo</b><small>Cliente que no está en SAE</small></div>`;$('res').innerHTML=h}
+function elige(c,k){const x=MIS().find(y=>y.cli===c)||D.clientes.find(y=>y.cli===c)||D.directorio.find(y=>y.cli===c)||PROS[c];
+ if(k==='agc'){aw.cli=x;aw.mot=sugiere(x)}else{cli=x;S={mot:sugiere(x),tipo:'Visita'}}pinta()}
+function prospecto(k){const t=$('q').value.trim();if(t.length<3){toast('Escribe al menos 3 letras del nombre');return}
+ const p={cli:'N-'+Date.now().toString(36).toUpperCase().slice(-6),nombre:t,origen:'Prospecto',tipo:'Prospecto',productos:[]};PROS[p.cli]=p;elige(p.cli,k)}
+// ---------- formulario ----------
+const val=(T,k)=>T[k]==='Otro'&&T[k+'x']?'Otro: '+T[k+'x']:T[k];
+const R=(o,k,opts,cols=1)=>{const T=o==='aw'?aw:S;return `<div class="opts c${cols}">`+opts.map(v=>`<label><input type="radio" name="${o}${k}" value="${esc(v)}" ${T[k]===v?'checked':''} onchange="${o}['${k}']=this.value;pinta()">${esc(v)}${v==='Otro'?':':''}</label>`).join('')+'</div>'+
+ (T[k]==='Otro'?`<input class="txt" placeholder="¿Cuál? Escribe un comentario" value="${esc(T[k+'x']||'')}" oninput="${o}['${k}x']=this.value;${o==='aw'?'chkAw()':'upd()'}">`:'')};
+const Q=(n,t,b,req=true,note='')=>`<div class="qq"><div class="qt"><span class="qn">${n}</span>${t}${req?' <b class="rq">*</b>':''}</div>${note?`<div class="qnote">${note}</div>`:''}${b}</div>`;
+function nuevo(c,citaId){vista='reg';ficha=null;aw=null;from=citaId?K.find(k=>k.id===citaId):null;cli=c?byC(c):null;S=cli?{mot:from?from.mot.replace(/^Otro: .*/,'Otro'):sugiere(cli),tipo:from&&from.tipo!=='Tarea'?from.tipo:'Visita'}:{};
+ if(from&&/^Otro: /.test(from.mot))S.motx=from.mot.slice(6);pinta()}
+function nec(){const r=S.res,m=S.mot,its=S.items||[],rc=m==='Reclamo'&&S.recl==='Calidad';
+ return{tab:TAB_RES.includes(r)||m==='Calidad'||rc,recl:m==='Reclamo',cal:m==='Calidad'||rc,mes:r==='Va a comprar'||its.some(x=>x.mot==='Va a comprar'),etapa:m==='Entrega de muestra'||m==='Proyecto',cob:m==='Cobranza'}}
+const defMot=()=>S.res==='Hizo pedido'?'Compró':S.res==='Va a comprar'?'Va a comprar':(S.mot==='Calidad'||S.recl==='Calidad')?'Calidad':'';
+function falta(){if(!cli)return 'Busca un cliente';if(!S.mot)return 'Falta: a qué fuiste';if(S.mot==='Otro'&&!S.motx)return 'Falta: escribe a qué fuiste';
+ if(!S.res)return 'Falta: qué pasó';if(S.res==='Otro'&&!S.resx)return 'Falta: escribe qué pasó';const n=nec(),its=S.items||[];
+ if(n.recl&&!S.recl)return 'Falta: de qué es el reclamo';if(n.recl&&S.recl==='Otro'&&!S.reclx)return 'Falta: escribe el reclamo';if(n.cal&&!S.calp)return 'Falta: problema de calidad';
+ if(n.tab&&!its.length)return 'Falta: al menos un producto';
+ for(const [k,x] of its.entries()){if(!x.prod)return `Falta: producto (renglón ${k+1})`;if(!x.mot)return `Falta: motivo de ${x.prod}`;if(x.mot==='Falta de material'&&!(+x.cant>0))return `Falta: m² de ${x.prod}`}
+ if(n.mes&&!S.mes)return 'Falta: ¿para cuándo compra?';if(n.etapa&&!S.etapa)return 'Falta: etapa';if(n.cob&&!S.cob)return 'Falta: compromiso de pago';if(!S.sig)return 'Falta: siguiente paso';return ''}
+function upd(){const f=falta();$('msg').textContent=f||'Listo para guardar';$('sv').disabled=!!f}
+function addIt(){(S.items=S.items||[]).push({prod:'',cant:'',mot:defMot()});pinta()}
+function delIt(k){S.items.splice(k,1);pinta()}
+function tabla(){const its=S.items||[],opt=(L,v)=>'<option value="">Elegir…</option>'+L.map(o=>`<option ${o===v?'selected':''}>${o}</option>`).join('');
+ return `<table class="pt2"><tr><th>Producto</th><th>Cant. m²</th><th>Motivo</th><th></th></tr>`+its.map((x,k)=>`<tr>
+  <td style="position:relative"><input class="pq" id="pq${k}" placeholder="Buscar…" value="${esc(x.prod)}" autocomplete="off" oninput="S.items[${k}].prod='';sugP(${k},this.value)" onfocus="sugP(${k},this.value)"><div class="psug" id="ps${k}"></div></td>
+  <td><input type="number" inputmode="numeric" placeholder="${x.mot==='Falta de material'?'oblig.':'opc.'}" value="${esc(x.cant)}" oninput="S.items[${k}].cant=this.value;upd()"></td>
+  <td><select onchange="S.items[${k}].mot=this.value;pinta()">${opt(MOTP,x.mot)}</select></td><td><a class="x" onclick="delIt(${k})">×</a></td></tr>`).join('')+'</table>'+
+ `<div class="addit" onclick="addIt()">+ Agregar producto</div><div class="qnote" style="margin-left:4px">Escribe parte de la clave: primero salen los que ya compra. Cantidad obligatoria con "Falta de material".</div>`}
+function sugP(k,q){const n=norm(q).trim(),mine=(cli.productos||[]).map(p=>p.k),L=[...mine,...D.catalogo.filter(c=>!mine.includes(c))];
+ const m=(n?L.filter(c=>norm(c).includes(n)):mine).slice(0,8),box=$('ps'+k);
+ box.innerHTML=(m.length?'':'<div style="color:var(--mut)">Sin coincidencias</div>')+m.map(c=>`<div onmousedown='pickP(${k},"${jq(c)}")'>${esc(c)}${mine.includes(c)?' <small>· lo compra</small>':''}</div>`).join('')+
+  (n&&!L.some(c=>norm(c)===n)?`<div onmousedown="pickP(${k},$('pq${k}').value.trim().toUpperCase())"><b>Usar "${esc(q.trim().toUpperCase())}"</b></div>`:'');box.style.display='block';upd()}
+function pickP(k,v){S.items[k].prod=v;pinta()}
+document.addEventListener('click',e=>{if(!e.target.classList.contains('pq'))document.querySelectorAll('.psug').forEach(b=>b.style.display='none')});
+function reg(){if(!cli)return buscador('reg');const n=nec();if(n.tab&&!(S.items&&S.items.length))S.items=[{prod:'',cant:'',mot:defMot()}];let k=1,h='';
+ h+=`<div class="selc"><div><b onclick='verFicha("${jq(cli.cli)}")' style="cursor:pointer">${esc(cli.nombre)}</b><small>${esc(cli.cli)} · ${esc(cli.tipo||'')}${cli.ej&&cli.ej!==EJ?' · lo lleva '+esc(cli.ej):''}${from?' · desde tu agenda':''}</small></div><a onclick="cli=null;from=null;S={};pinta()">Cambiar</a></div>`;
+ h+=Q(k++,'¿A qué fuiste?',R('S','mot',MOT,2),true,from?'Viene de tu cita':'Sugerido por su alerta');
+ h+=Q(k++,'Tipo de contacto',R('S','tipo',['Visita','Llamada','WhatsApp'],3));
+ h+=Q(k++,'¿Qué pasó?',R('S','res',RES,2),true,S.mot==='Seguimiento'?'Si todo sigue igual: "Sin novedad"':'');
+ if(n.recl)h+=Q(k++,'¿De qué es el reclamo?',R('S','recl',RECL,2));
+ if(n.cal)h+=Q(k++,'¿Qué problema de calidad?',R('S','calp',CALP,2));
+ if(n.tab||(S.items&&S.items.length))h+=Q(k++,'Productos que se hablaron',tabla(),n.tab,'Un renglón por producto, con su motivo');
+ else if(S.res)h+=`<div class="more" onclick="addIt()">+ Agregar productos que se hablaron (opcional)</div>`;
+ if(n.mes)h+=Q(k++,'¿Para cuándo compra?',R('S','mes',MESES,2));
+ if(n.etapa)h+=Q(k++,'¿En qué etapa va?',R('S','etapa',ETAPA,2));
+ if(n.cob)h+=Q(k++,'¿Compromiso de pago?',R('S','cob',COB,1));
+ h+=Q(k++,'Siguiente paso',R('S','sig',SIG.map(sigL),1),true,'Se agenda solo en tu Agenda y Mi día');
+ h+=Q(k++,'Comentario',`<input class="txt" placeholder="Escribe o dicta (opcional)" value="${esc(S.nota||'')}" oninput="S.nota=this.value">`,false);
+ if(!S.mas)h+=`<div class="more" onclick="S.mas=1;pinta()">+ Más preguntas (opcional): competidor${n.etapa?'':' · proyecto'}${n.cob?'':' · cobranza'}</div>`;
+ else{h+=Q(k++,'¿Quién más le vende?',`<input class="txt" placeholder="Nombre del competidor (opcional)" value="${esc(S.comp||'')}" oninput="S.comp=this.value">`,false);
+  if(!n.etapa)h+=Q(k++,'¿Hay proyecto?',R('S','proy',['Nuevo','Avanzó uno','No'],3),false);
+  if(!n.cob)h+=Q(k++,'Cobranza',R('S','cob',[...COB,'No se habló'],1),false)}
+ return h}
+function guardar(){if(falta())return;const s=SIG.find(x=>sigL(x)===S.sig),n=nec(),sigF=s[2]?add(HOY,s[2]):'';ponCliente(cli);
+ const det=n.recl?'Reclamo: '+val(S,'recl')+(n.cal?' · '+val(S,'calp'):''):n.cal?'Calidad: '+val(S,'calp'):'';
+ const b={op:'o'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),plaza:PLAZA,ej:EJ,cli:cli.cli,tipo:S.tipo,res:val(S,'res'),mot:val(S,'mot'),det,
+  lineas:(S.items||[]).filter(x=>x.prod).map(x=>({prod:x.prod,m2:+x.cant||0,motivo:x.mot,mes:x.mot==='Va a comprar'?(S.mes||''):''})),mes:n.mes?S.mes:'',
+  comp:S.comp||'',proy:n.etapa?'Avanzó uno':(S.proy||''),pet:S.etapa||'',cob:S.cob||'',sig:S.sig,cuando:s[1],sigF,nota:S.nota||''};
+ // se ve de inmediato; se manda en cola (si no hay señal, se queda en el teléfono)
+ V.unshift(Object.assign({id:'tmp',ts:new Date().toISOString(),pend:1},b));
+ K.forEach(a=>{if(a.cli===b.cli&&a.ej===EJ&&a.st==='pendiente'&&a.f<=HOY)a.st='hecha'});
+ if(sigF)K.push({id:'t'+b.op,tmp:1,op:b.op,f:sigF,ej:EJ,cli:b.cli,h:'Mañana',tipo:/^Llamada/.test(b.sig)?'Llamada':/^Visita/.test(b.sig)?'Visita':'Tarea',mot:/^(Visita|Llamada)/.test(b.sig)?'Seguimiento':s[0],nota:'',org:'Siguiente paso',st:'pendiente'});
+ const q=ls.get('bp_cola',[]);q.push(b);ls.set('bp_cola',q);reenvia();
+ const ms=new Set(b.lineas.map(x=>x.motivo)),ar=[];
+ if(ms.has('Falta de material'))ar.push('Compras (falta de material con m²)');if(ms.has('Compró')||ms.has('Va a comprar'))ar.push('Planeación (pronóstico)');
+ if(ms.has('Precio')||ms.has('Competidor'))ar.push('Comercial (precio y competencia)');if(ms.has('Calidad')||/Calidad/.test(det))ar.push('Calidad');if(n.recl)ar.push('Servicio a clientes (reclamo)');
+ if(ms.has('Crédito')||b.cob)ar.push('Crédito y cobranza');if(b.pet)ar.push('Proyectos');if(!ar.length)ar.push('Seguimiento comercial');
+ const rows=[['Cliente',cli.nombre],['A qué fue',b.mot+' · '+b.tipo],['Qué pasó',b.res],['Detalle',det],['Para cuándo',b.mes],['Etapa',b.pet],['Cobranza',b.cob],['Comentario',b.nota]].filter(r=>r[1]);
+ const tb=b.lineas.length?`<div class="row"><b>Productos</b><table class="pt3">${b.lineas.map(x=>`<tr><td>${esc(x.prod)}</td><td>${x.m2?x.m2.toLocaleString('es-MX')+' m²':'—'}</td><td>${esc(x.motivo)}</td></tr>`).join('')}</table></div>`:'';
+ vista='hecho';$('foot').classList.add('hide');head();
+ $('scr').innerHTML=HECHO=`<div class="done"><h2>Visita guardada</h2>${rows.map(r=>`<div class="row"><b>${r[0]}</b>${esc(r[1])}</div>`).join('')}${tb}<div class="row"><b>Le llega a</b>${ar.join(' · ')}</div>
+  ${sigF?`<div class="row" style="border-color:var(--teal)"><b>Quedó en tu agenda</b>${esc(s[0])} · ${fd(sigF)}</div>`:'<div class="row"><b>Siguiente paso</b>Nada por ahora</div>'}
+  <button class="btn2" onclick="ir('dia')">Volver a Mi día</button><button class="btn2" onclick="nuevo()">Registrar otra</button></div>`;$('scr').scrollTop=0}
+// ---------- Rayos X ----------
+function verFicha(c){ficha=c;pinta()}
+function spark(c){const mx=Math.max(...c.serie,1),w=300,hh=64,bw=w/c.serie.length;
  return `<svg viewBox="0 0 ${w} ${hh+16}" width="100%">${c.serie.map((v,i)=>{const h=Math.max(1,v/mx*hh);return `<rect x="${i*bw+3}" y="${hh-h}" width="${bw-6}" height="${h}" rx="2" fill="${i>=9?'#009072':'#9DC4D5'}"/><text x="${i*bw+bw/2}" y="${hh+12}" font-size="8.5" text-anchor="middle" fill="#7b8a99">${MES[+c.meses[i].slice(5)-1]}</text>`}).join('')}</svg>`}
-function s2(){const c=D.clientes[cur];hdr(esc(c.nombre),esc(c.cli+' · '+c.pz+(c.en62?' · en la lista de los 62':'')),['semana','Mi semana']);
- const cr=c.lim>0?Math.min(1,(c.saldo||0)/c.lim):0;const vs=V.filter(v=>v.cli===c.cli);
- document.getElementById('scr').innerHTML=`<span class="badge ${BAD[c.tipo]||'b-gry'}">${esc(c.tipo)}</span>
-<div class="tiles"><div class="tile"><div class="l">Venta 12 m</div><div class="v">${fm(c.v12)}</div></div><div class="tile"><div class="l">Últimos 90 d</div><div class="v">${fm(c.r90)}</div><div class="d">${pc(c.vsP)} vs su promedio</div></div><div class="tile"><div class="l">Sin comprar</div><div class="v">${c.dias==null?'—':c.dias+' d'}</div><div class="d">última ${fd(c.ult_compra)}</div></div></div>
-<div class="card"><h4>Compra mes a mes · últimos 12 meses</h4>${spark(c)}<div style="font-size:11px;color:var(--mut)">Mismos 90 días del año pasado: <b style="color:var(--ink)">${fm(c.a90)}</b> (${pc(c.vsA)} hoy)</div></div>
-<div class="plan"><b>Plan sugerido:</b> ${esc(c.plan)}</div><div style="height:8px"></div>
-<div class="card"><h4>Qué compra</h4>${c.productos.map(p=>`<div class="pr"><span><b>${esc(p.k)}</b></span><span>${fm(p.v)} · ${Math.round(p.m2/1e3).toLocaleString('es-MX')} mil m² · ${fd(p.ult)}</span></div>`).join('')||'<div style="font-size:12px;color:var(--mut)">—</div>'}</div>
-${c.cat_dejo?`<div class="card" style="border-color:#f3c9c3"><h4 style="color:var(--red)">Dejó de comprar</h4><div class="chipsro"><span>${esc(c.cat_dejo)}</span></div><div style="font-size:11px;color:var(--mut);margin-top:4px">compraba ${fm(c.cat_dejo_v)} al año · ¿quién se lo vende ahora?</div></div>`:''}
-<div class="card"><h4>Categorías que compra</h4><div class="chipsro">${c.cats.map(x=>`<span>${esc(x)}</span>`).join('')}</div><h4 style="margin-top:8px">Sus pares compran y él no</h4><div class="chipsro hue">${c.huecos.map(x=>`<span>${esc(x)}</span>`).join('')||'<span>—</span>'}</div></div>
-<div class="card"><h4>Crédito</h4>${c.lim>0?`<div style="font-size:12px">Saldo <b>${fm(c.saldo)}</b> de <b>${fm(c.lim)}</b> ${c.cred_tope?'<span class="badge b-red">al tope</span>':''}</div><div class="bar"><i style="width:${100*cr}%;background:${cr>.9?'var(--red)':'var(--teal)'}"></i></div>`:'<div style="font-size:12px;color:var(--mut)">Sin límite de crédito registrado</div>'}</div>
-<div class="card"><h4>Visitas anteriores</h4>${vs.length?vs.slice(0,8).map(v=>`<div class="hist"><b>${fd(v.ts)}</b> · ${esc(v.tipo)} · ${esc(v.res)}${v.lineas.length?'<br>'+v.lineas.map(l=>`${esc(l.prod)} ${Number(l.m2).toLocaleString('es-MX')} m² <span style="color:${l.motivo==='Falta de material'?'#8a5a00':(RAZ_MALA.includes(l.motivo)?'var(--red)':'var(--mut)')}">(${esc(l.motivo)})</span>`).join(' · '):''}${v.sig&&v.sig!=='Nada por ahora'?`<br><span style="color:var(--mut)">Siguiente: ${esc(v.sig)} ${esc((v.cuando||'').toLowerCase())}</span>`:''}${v.nota?`<br><i style="color:var(--mut)">“${esc(v.nota)}”</i>`:''}</div>`).join(''):'<div style="font-size:12px;color:var(--mut)">Aún no hay visitas registradas. Desde la primera, aquí se ve qué se habló y qué quedó pendiente.</div>'}</div>`;
- foot(`<button class="btn" onclick="nueva()">Registrar visita</button>`)}
-// ---------- 3 · Registrar visita ----------
-function nueva(){const c=D.clientes[cur];F={tipo:'',res:'',lineas:[],comp:'',proy:'',pet:'',cob:'',sig:'',cuando:'',nota:''};taps=0;addL(c.productos[0]?c.productos[0].k:'');scr='registro';pinta();document.getElementById('scr').scrollTop=0}
-function addL(k){F.lineas.push({prod:k||'',m2:0,motivo:'',mes:''})}
-function chips(sel,opts,fn,cls){return `<div class="chips">${opts.map(o=>`<button class="chip ${cls?cls(o):''} ${sel===o?'on':''}" onclick="${fn(o)}">${esc(o)}</button>`).join('')}</div>`}
-function pick(k,v){F[k]=F[k]===v?'':v;if(k==='proy'&&(!F.proy||SIN_PROY.includes(F.proy)))F.pet='';taps++;s3()}
-function pickL(i,k,v){F.lineas[i][k]=F.lineas[i][k]===v?'':v;taps++;s3()}
-function m2(i,d){const l=F.lineas[i];l.m2=Math.max(0,(+l.m2||0)+d);taps++;s3()}
-const conProd=()=>F.res&&F.res!=='No lo vi';
-function s3(){const c=D.clientes[cur];hdr('Registrar visita',esc(c.nombre),['resumen','Resumen']);const prods=c.productos.map(p=>p.k);const sc=document.getElementById('scr').scrollTop;
- const malas=F.lineas.some(l=>['Precio','Competidor'].includes(l.motivo))||F.res==='No compra';
- let h=`<div class="q">¿Cómo fue?</div>${chips(F.tipo,['Visita','Llamada','WhatsApp'],o=>`pick('tipo','${o}')`)}
-<div class="q">¿Qué pasó?</div>${chips(F.res,['Compró','Va a comprar','Lo está pensando','No compra','No lo vi'],o=>`pick('res','${o}')`,o=>o==='No compra'?'bad':'')}`;
- if(conProd()){h+=`<div class="q">Productos <small>uno por cada producto que se habló · va a Planeación</small></div>`;
-  h+=F.lineas.map((l,i)=>`<div class="line"><div class="top"><b>Producto ${i+1}</b>${F.lineas.length>1?`<button class="x" onclick="F.lineas.splice(${i},1);taps++;s3()">✕</button>`:''}</div>
-${chips(l.prod,prods,o=>`pickL(${i},'prod','${o}')`)}
-<input class="t" list="cat" placeholder="u otro producto (escribe o elige)" value="${prods.includes(l.prod)?'':esc(l.prod)}" onchange="F.lineas[${i}].prod=this.value.trim().toUpperCase();taps++;s3()">
-<div class="q">Cantidad</div><div class="step"><button onclick="m2(${i},-1000)">−</button><input type="number" inputmode="numeric" min="0" step="500" value="${l.m2||''}" placeholder="0" onchange="F.lineas[${i}].m2=Math.max(0,Math.round(+this.value||0));taps++;s3()"><span style="font-weight:800">m²</span><button onclick="m2(${i},1000)">+</button></div>
-<div class="q">Razón <small>de este producto</small></div>${chips(l.motivo,RAZ,o=>`pickL(${i},'motivo','${o}')`,o=>o==='Falta de material'?'fm':(RAZ_MALA.includes(o)?'bad':''))}
-<div class="q">¿Para cuándo?</div>${chips(l.mes,MESES_PROX,o=>`pickL(${i},'mes','${o}')`)}</div>`).join('');
-  h+=`<button class="addp" onclick="addL('');taps++;s3()">+ Agregar otro producto</button>`}
- if(malas)h+=`<div class="q">¿Quién más le vende? <small>opcional · la lista la define Comercial</small></div>${chips(F.comp,['Competidor 1','Competidor 2','Competidor 3','Otro','No sé',NA],o=>`pick('comp','${o}')`)}`;
- if(conProd())h+=`<div class="q">¿Proyecto? <small>opcional · reemplaza la hoja de proyectos</small></div>${chips(F.proy,['Nuevo','Avanzó uno',NA],o=>`pick('proy','${o}')`)}
-${F.proy&&!SIN_PROY.includes(F.proy)?`<div style="margin-top:6px">${chips(F.pet,['Pidió muestra','Muestra entregada','En validación','Validado · espera pedido','Compró','Se perdió'],o=>`pick('pet','${o}')`,o=>o==='Se perdió'?'bad':'')}</div>`:''}`;
- h+=`<div class="q">Cobranza <small>opcional</small></div>${chips(F.cob,['Compromiso esta semana','Compromiso este mes','Sin compromiso','No aplica'],o=>`pick('cob','${o}')`)}`;
- h+=`<div class="q">Siguiente paso</div>${chips(F.sig,['Visita','Llamada','Muestra','Cotización','Nada por ahora'],o=>`pick('sig','${o}')`)}
-${F.sig&&F.sig!=='Nada por ahora'?`<div style="margin-top:8px">${chips(F.cuando,['Esta semana','En 2 semanas','En un mes'],o=>`pick('cuando','${o}')`)}</div>`:''}
-<div class="q">Nota <small>opcional · puedes dictar con el micrófono del teclado</small></div><textarea class="t" rows="2" placeholder="Lo que no cabe en los botones" oninput="F.nota=this.value">${esc(F.nota)}</textarea>
-<datalist id="cat">${D.catalogo.map(p=>`<option value="${esc(p)}">`).join('')}</datalist>`;
- const e=document.getElementById('scr');e.innerHTML=h;e.scrollTop=sc;
- const lv=F.lineas.filter(l=>l.prod);
- const ok=F.tipo&&F.res&&F.sig&&(F.sig==='Nada por ahora'||F.cuando)&&(!conProd()||(lv.length&&lv.every(l=>l.motivo)));
- foot(`<button class="btn" id="save" ${ok?'':'disabled'} onclick="guarda()">Guardar</button><div class="tap">${taps} toques${ok?' · listo para guardar':' · obligatorio: cómo fue, qué pasó, razón de cada producto y siguiente paso'}</div>`)}
-async function guarda(){const c=D.clientes[cur];document.getElementById('save').disabled=true;
- const b={ej:EJ,cli:c.cli,tipo:F.tipo,res:F.res,comp:F.comp,proy:F.proy,pet:F.pet,cob:F.cob,sig:F.sig,cuando:F.cuando,nota:F.nota,lineas:conProd()?F.lineas.filter(l=>l.prod):[]};
- let item;try{const j=await api('guardar',CLAVE,b);if(!j.ok)throw new Error(j.error);item=j.item}
- catch(e){b._tmp='local'+Date.now();const q=ls.get('bp_cola',[]);q.push(b);ls.set('bp_cola',q);item={...b,id:b._tmp,ts:new Date().toISOString()};toast('Sin señal: guardado en el teléfono, se envía solo')}
- V.unshift(item);ls.set('bp_cache',{D,V,AGALL});ultimo={c,v:item,taps};scr='listo';pinta()}
-// ---------- 4 · Listo · a dónde va ----------
-function s4(){const {c,v,taps:t}=ultimo;hdr('Guardado','se suma a su historial');const he=hechosDe(EJ),M=mis();const r=[];
- const L=v.lineas||[];const fmL=l=>`${l.prod} · ${Number(l.m2).toLocaleString('es-MX')} m²${l.mes?' · '+l.mes:''}`;
- r.push(['👤','Su historial',`${v.tipo} · ${v.res}. Se ve en el resumen la próxima vez.`]);
- const fmat=L.filter(l=>l.motivo==='Falta de material');if(fmat.length)r.push(['🚚','Compras · falta de material',fmat.map(fmL).join('<br>')+'<br>Se suma a la venta perdida por no tener el producto.']);
- const cal=L.filter(l=>l.motivo==='Calidad');if(cal.length)r.push(['🧪','Calidad',`Entra a la lista del mes: ${esc(c.nombre)}, ${cal.map(l=>l.prod).join(', ')}, ${fm(c.v12)} al año en juego.`]);
- if(L.some(l=>l.motivo==='Crédito'))r.push(['💳','Crédito',`Caso para revisar: saldo ${fm(c.saldo)} de ${fm(c.lim)}.`]);
- if(L.some(l=>['Precio','Competidor'].includes(l.motivo))||v.comp)r.push(['🏷️','Comercial',`Competidor: ${esc(v.comp||'no identificado')}. Se acumula por producto y por mes.`]);
- const pron=L.filter(l=>RAZ_VENTA.includes(l.motivo)&&l.m2);if(pron.length)r.push(['📦','Planeación',pron.map(fmL).join('<br>')+'<br>Se suma al pronóstico.']);
- if(v.proy&&!SIN_PROY.includes(v.proy))r.push(['🚀','Proyectos',`${v.proy==='Nuevo'?'Proyecto nuevo':'Proyecto'} → ${esc(v.pet||'etapa por confirmar')}. Se ve en la junta del lunes.`]);
- if(v.cob&&v.cob.startsWith('Compromiso'))r.push(['💰','Cobranza',`${esc(v.cob)}. Crédito lo ve sin pedir la nota del Excel.`]);
- r.push(['📅','Agenda',v.sig==='Nada por ahora'?'Sin siguiente paso.':`${esc(v.sig)} ${esc((v.cuando||'').toLowerCase())} · aparece en Mi semana.`]);
- r.push(['📊','Junta del lunes','El gerente lo ve sin pedir reporte.']);
- document.getElementById('scr').innerHTML=`<div class="done"><div class="ck">✓</div><div style="font-weight:800;font-size:16px">${esc(c.nombre)}</div><div style="font-size:12px;color:var(--mut)">${t} toques · ${[...he].filter(k=>M.some(([x])=>x.cli===k)).length} de ${M.length} clientes con visita esta semana</div></div>`+r.map(([i,ti,d])=>`<div class="route"><div class="ic">${i}</div><div><b>${ti}</b>${d}</div></div>`).join('');
- foot(`<button class="btn" onclick="siguiente()">Siguiente cliente</button>`)}
-function siguiente(){const ag=AG(),he=hechosDe(EJ);const M=mis();
- const n=M.find(([c,i])=>i in ag&&!he.has(c.cli))||M.find(([c])=>!he.has(c.cli));if(n){cur=n[1];ir('resumen')}else ir('semana')}
-// ---------- 6 · Agregar cliente que no está en la lista ----------
-let BQ='',NP=null;
-function candidatos(){const vis=new Set(),out=[];
- D.clientes.filter(c=>c.ej!==EJ&&real(c.ej)).forEach(c=>{if(!vis.has(c.cli)){vis.add(c.cli);out.push({cli:c.cli,nombre:c.nombre,ej:c.ej})}});
- (D.directorio||[]).forEach(c=>{if(!vis.has(c.cli)){vis.add(c.cli);out.push(c)}});return out}
-const norm=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
-function s5(){hdr('Agregar cliente','que no venía en tu lista',['semana','Mi semana']);document.getElementById('foot').classList.add('hide');
- if(NP){document.getElementById('scr').innerHTML=`<div class="q">Prospecto nuevo <small>no está en SAE</small></div>
-<input class="t" id="np_n" placeholder="Nombre de la empresa" value="${esc(NP.nombre)}" oninput="NP.nombre=this.value">
-<div class="q">Nota <small>opcional · ciudad, contacto, qué imprime</small></div><textarea class="t" rows="2" oninput="NP.nota=this.value">${esc(NP.nota)}</textarea>
-<div style="height:12px"></div><button class="btn" onclick="agregaCli(null)">Agregar y registrar visita</button><div style="height:8px"></div><button class="addp" onclick="NP=null;s5()">‹ Mejor buscar en SAE</button>`;return}
- const q=norm(BQ).trim(),L=q.length<2?[]:candidatos().filter(c=>norm(c.nombre+' '+c.cli).includes(q)).slice(0,25);
- const e=document.getElementById('scr');e.innerHTML=`<div class="q">Busca por nombre o clave <small>clientes que compraron en GDL en 24 meses</small></div>
-<input class="t" id="bq" placeholder="ej. Etipress o GD269" value="${esc(BQ)}" oninput="BQ=this.value;s5()" autocomplete="off">
-<div id="res">${q.length<2?'<div class="empty">Escribe al menos 2 letras</div>':(L.map(c=>`<div class="it" onclick="agregaCli('${esc(c.cli)}')"><div style="min-width:0"><div class="n">${esc(c.nombre)}</div><div class="m">${esc(c.cli)}${c.ej?' · lo lleva: '+esc(c.ej):''}${c.ult?' · última compra '+fd(c.ult):''}</div></div><div class="r"><b style="color:var(--teal)">+ Agregar</b></div></div>`).join('')||'<div class="empty">No aparece en la cartera GDL</div>')}</div>
-<div style="height:10px"></div><button class="addp" onclick="NP={nombre:BQ,nota:''};s5()">+ No está: registrar prospecto nuevo</button>`;
- const i=document.getElementById('bq');i.focus();i.setSelectionRange(i.value.length,i.value.length)}
-async function agregaCli(cli){let x;
- if(cli){const c=candidatos().find(c=>c.cli===cli);x={cli,nombre:c.nombre,ej:EJ,origen:'SAE',ej_sae:c.ej||'',ult:c.ult||null,nota:''}}
- else{const n=(NP.nombre||'').trim();if(n.length<3){toast('Escribe el nombre de la empresa');return}
-  x={cli:'N-'+Date.now().toString(36).toUpperCase(),nombre:n,ej:EJ,origen:'Prospecto',ej_sae:'',nota:(NP.nota||'').trim()}}
- addExtra(x);cur=D.clientes.findIndex(c=>c.cli===x.cli&&c.ej===EJ);BQ='';NP=null;ls.set('bp_cache',{D,V,AGALL});
- try{const j=await api('agregarCliente',CLAVE,x);if(!j.ok)throw new Error(j.error);toast('Cliente agregado a tu lista')}
- catch(e){const q=ls.get('bp_cola_cli',[]);q.push(x);ls.set('bp_cola_cli',q);toast('Sin señal: se agrega al volver la señal')}
- ir('resumen')}
-// ---------- 5 · Junta del lunes ----------
-function hb(items,max,col,fmt,w=380){const h=items.length*24+4;return items.length?`<svg viewBox="0 0 ${w} ${h}" width="100%">${items.map(([l,v,c2],i)=>{const bw=Math.max(2,(w-200)*v/(max||1));return `<text x="0" y="${i*24+16}" font-size="11" fill="#39485a">${esc(String(l).slice(0,24))}</text><rect x="150" y="${i*24+5}" width="${bw}" height="14" rx="3" fill="${c2||col}"/><text x="${156+bw}" y="${i*24+16}" font-size="11" font-weight="700" fill="#10202e">${fmt(v)}</text>`}).join('')}</svg>`:'<div class="empty">Sin capturas todavía</div>'}
-function dash(){const sel=document.getElementById('jej');const ejs=[...new Set(D.clientes.map(c=>c.ej))].filter(real);
- if(!sel.options.length)sel.innerHTML='<option value="">Ejecutivo: todos</option>'+ejs.concat([PRUEBA]).map(e=>`<option>${esc(e)}</option>`).join('');
- const fe=sel.value,CL=D.clientes.filter(c=>fe?c.ej===fe:real(c.ej)),cls=new Set(CL.map(c=>c.cli));
- const delEj=x=>fe?x.ej===fe:real(x.ej);
- const VV=V.filter(v=>cls.has(v.cli)&&delEj(v)),VS=VV.filter(enSemana),AGS=AGALL.filter(a=>cls.has(a.cli)&&delEj(a));
- document.getElementById('jsub').textContent=`semana ${SEM_TXT} · ${fe||ejs.length+' ejecutivos'} · datos de venta al ${fd(D.corte)} · ${VV.length} visitas capturadas`;
- const al=CL.filter(c=>ALT.includes(c.tipo)),pe=al.reduce((a,c)=>a+c.perd,0);
- const conCausa=al.filter(c=>VV.some(v=>v.cli===c.cli)).length;
- const lines=VV.flatMap(v=>v.lineas.map(l=>({...l,ej:v.ej,cli:v.cli})));
- const fmat=lines.filter(l=>l.motivo==='Falta de material');const fmTot=fmat.reduce((a,l)=>a+(+l.m2||0),0);
- const pron=lines.filter(l=>RAZ_VENTA.includes(l.motivo)&&l.mes&&l.mes!=='No sabe'&&l.mes!==NA);const m1=MESES_PROX[0];
- const he=new Set(VS.map(v=>v.cli));
- document.getElementById('dk').innerHTML=`<div><div class="l">Visitas hechas / planeadas</div><div class="dv">${he.size} / ${AGS.length}</div><div class="d">${AGS.length?Math.round(100*AGS.filter(a=>he.has(a.cli)).length/AGS.length):0} % de lo agendado se visitó</div></div>
-<div><div class="l">Clientes en alerta</div><div class="dv">${al.length}</div><div class="d">${fm(pe)} por trimestre dejaron de entrar</div></div>
-<div><div class="l">Alertas con causa</div><div class="dv">${conCausa} de ${al.length}</div><div class="d">meta: todas en ≤ 2 semanas</div></div>
-<div><div class="l">Sin material</div><div class="dv" style="color:var(--amb)">${Math.round(fmTot/1e3).toLocaleString('es-MX')} mil m²</div><div class="d">${fmat.length} veces · ${new Set(fmat.map(l=>l.prod)).size} productos</div></div>
-<div><div class="l">Próxima compra (${m1.toLowerCase()})</div><div class="dv">${Math.round(pron.filter(l=>l.mes===m1).reduce((a,l)=>a+(+l.m2||0),0)/1e3).toLocaleString('es-MX')} mil m²</div><div class="d">va a Planeación</div></div>`;
- const ej=(fe?[fe]:ejs).map(e=>{const c=D.clientes.filter(x=>x.ej===e);const ag=AGALL.filter(a=>a.ej===e).length;const h2=hechosDe(e).size;return `<tr><td><b>${esc(e)}</b></td><td class="n">${c.length}</td><td class="n" style="color:var(--red);font-weight:700">${c.filter(x=>ALT.includes(x.tipo)).length}</td><td class="n">${fm(c.reduce((a,x)=>a+(ALT.includes(x.tipo)?x.perd:0),0))}</td><td class="n">${c.filter(x=>x.tipo==='Creció fuerte').length}</td><td class="n">${h2} / ${ag}</td></tr>`}).join('');
- const R={};lines.forEach(l=>{if(l.motivo&&!RAZ_VENTA.includes(l.motivo)&&l.motivo!==NA)R[l.motivo]=(R[l.motivo]||0)+1});
- const ca=Object.entries(R).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,v,k==='Falta de material'?'#c9963a':(RAZ_MALA.includes(k)?'#c0392b':'#9DC4D5')]);
- const P={};fmat.forEach(l=>P[l.prod]=(P[l.prod]||0)+(+l.m2||0));const fp=Object.entries(P).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>[k,v,'#c9963a']);
- const ms=MESES_PROX.slice(0,3);const tot={};pron.forEach(l=>tot[l.prod]=(tot[l.prod]||0)+(+l.m2||0));const prods=Object.entries(tot).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]);const colp=['#0d1b2e','#009072','#9DC4D5'];
- const PX={};ms.forEach(m=>{PX[m]={};pron.filter(l=>l.mes===m).forEach(l=>PX[m][l.prod]=(PX[m][l.prod]||0)+(+l.m2||0)/1e3)});
- const sm=m=>Object.entries(PX[m]).filter(([p])=>prods.includes(p)).reduce((a,[,v])=>a+v,0);const mx=Math.max(1,...ms.map(sm));
- const stk=prods.length?`<svg viewBox="0 0 360 170" width="100%">${ms.map((m,i)=>{let y=140;return prods.map((p,j)=>{const h=(PX[m][p]||0)/mx*120;y-=h;return `<rect x="${40+i*105}" y="${y}" width="60" height="${h}" fill="${colp[j]}"/>`}).join('')+`<text x="${70+i*105}" y="156" font-size="11" text-anchor="middle" fill="#39485a">${m}</text><text x="${70+i*105}" y="${136-sm(m)/mx*120}" font-size="11" font-weight="700" text-anchor="middle">${Math.round(sm(m)).toLocaleString('es-MX')}</text>`}).join('')}</svg><div style="font-size:10.5px;color:var(--mut)">${prods.map((p,j)=>`<span style="display:inline-block;width:9px;height:9px;background:${colp[j]};margin:0 3px 0 8px"></span>${esc(p)}`).join('')} · miles de m²</div>`:'<div class="empty">Sin capturas todavía</div>';
- const top=al.slice().sort((a,b)=>b.perd-a.perd).slice(0,8);
- const alr=top.map(c=>{const v=VV.find(x=>x.cli===c.cli);const raz=v&&v.lineas.find(l=>l.motivo&&!RAZ_VENTA.includes(l.motivo)&&l.motivo!==NA);return `<tr><td><b>${esc(c.nombre)}</b><br><span style="color:var(--mut)">${esc(c.ej)}</span></td><td>${c.tipo==='Dejó de comprar'?c.dias+' días sin comprar':'cayó '+pc(c.vsP)}</td><td class="n">${fm(c.perd)}</td><td>${v?`<span class="badge b-grn">${esc(raz?raz.motivo:v.res)}</span>`:'<span class="badge b-red">sin causa</span>'}</td></tr>`}).join('');
- document.getElementById('dg').innerHTML=`<div class="pn"><h5>Por ejecutivo</h5><div class="k">clientes, alertas y visitas de la semana (hechas / agendadas)</div><table><tr><th>Ejecutivo</th><th class="n">Clientes</th><th class="n">Alertas</th><th class="n">$ / trim</th><th class="n">Crecieron</th><th class="n">Visitas</th></tr>${ej}</table></div>
-<div class="pn"><h5>Por qué no compran</h5><div class="k">razón por producto capturada · rojo = le toca a otra área · ámbar = falta de material</div>${hb(ca,Math.max(1,...ca.map(x=>x[1])),'#9DC4D5',v=>v)}</div>
-<div class="pn"><h5>Falta de material por producto</h5><div class="k">m² que el cliente quería y no había · para Compras</div>${hb(fp,Math.max(1,...fp.map(x=>x[1])),'#c9963a',v=>Math.round(v).toLocaleString('es-MX')+' m²')}</div>
-<div class="pn"><h5>Próxima compra esperada</h5><div class="k">lo que dicen los ejecutivos → pedido a Colombia / China</div>${stk}</div>
-<div class="pn" style="grid-column:span 2"><h5>Clientes en alerta: ¿ya sabemos por qué?</h5><div class="k">los 8 con más venta en juego · se pone verde cuando el ejecutivo captura la visita</div><table><tr><th>Cliente</th><th>Alerta</th><th class="n">$ / trim que dejó de entrar</th><th>Causa</th></tr>${alr||'<tr><td colspan=4>—</td></tr>'}</table></div>`}
-function csv(){const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';const N={};D.clientes.forEach(c=>N[c.cli]=c.nombre);
- const rows=[['fecha','ejecutivo','cliente','nombre','tipo','resultado','producto','m2','razon','mes','competidor','proyecto','etapa','cobranza','siguiente','cuando','nota']];
- const fe=document.getElementById('jej').value;V.filter(v=>fe?v.ej===fe:real(v.ej)).forEach(v=>(v.lineas.length?v.lineas:[{}]).forEach(l=>rows.push([v.ts,v.ej,v.cli,N[v.cli],v.tipo,v.res,l.prod,l.m2,l.motivo,l.mes,v.comp,v.proy,v.pet,v.cob,v.sig,v.cuando,v.nota])));
- const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+rows.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv'}));a.download='bp_gdl_'+iso(HOY)+'.csv';document.body.appendChild(a);a.click();a.remove()}
+function fichaH(){const x=byC(ficha),vs=V.filter(v=>v.cli===ficha&&(v.ej===EJ||real(EJ))),ag=misK().filter(a=>a.cli===ficha&&a.st==='pendiente');
+ const cr=x.lim>0?Math.min(1,(x.saldo||0)/x.lim):0,tiene=x.serie&&x.serie.some(v=>v>0);
+ const rx=tiene?`<div class="tiles"><div class="tile"><div class="l">Venta 12 m</div><div class="v">${fm(x.v12)}</div></div><div class="tile"><div class="l">Últimos 90 d</div><div class="v">${fm(x.r90)}</div><div class="d">${pc(x.vsP)} vs su promedio</div></div><div class="tile"><div class="l">Sin comprar</div><div class="v">${x.dias==null?'—':x.dias+' d'}</div><div class="d">${x.ult_compra?'última '+fd(x.ult_compra):''}</div></div></div>
+ <div class="crd"><div class="n" style="cursor:default">Compra mes a mes · 12 meses</div>${spark(x)}<div class="m">Mismos 90 días del año pasado: <b style="color:var(--ink)">${fm(x.a90)}</b> (${pc(x.vsA)} hoy)</div></div>
+ ${x.plan?`<div class="crd" style="background:#eef7f3;border-color:#cfe9e1"><div class="m" style="color:var(--green)"><b>Plan sugerido:</b> ${esc(x.plan)}</div></div>`:''}
+ <div class="crd"><div class="n" style="cursor:default">Qué compra</div>${(x.productos||[]).map(p=>`<div class="hist" style="display:flex;justify-content:space-between;gap:6px"><b>${esc(p.k)}</b><span style="color:var(--mut)">${fm(p.v)} · ${Math.round(p.m2/1e3).toLocaleString('es-MX')} mil m² · ${fd(p.ult)}</span></div>`).join('')||'<div class="m">—</div>'}</div>
+ ${x.cat_dejo?`<div class="crd" style="border-color:#f3c9c3"><div class="n" style="cursor:default;color:var(--red)">Dejó de comprar</div><div class="m"><span class="tg r">${esc(x.cat_dejo)}</span> compraba ${fm(x.cat_dejo_v)} al año · ¿quién se lo vende ahora?</div></div>`:''}
+ <div class="crd"><div class="n" style="cursor:default">Categorías que compra</div><div style="margin-top:4px">${(x.cats||[]).map(k=>`<span class="tg s">${esc(k)}</span>`).join('')}</div><div class="n" style="cursor:default;margin-top:8px">Sus pares compran y él no</div><div style="margin-top:4px">${(x.huecos||[]).map(k=>`<span class="tg b">${esc(k)}</span>`).join('')||'<span class="m">—</span>'}</div></div>
+ <div class="crd"><div class="n" style="cursor:default">Crédito</div>${x.lim>0?`<div class="m" style="color:var(--ink)">Saldo <b>${fm(x.saldo)}</b> de <b>${fm(x.lim)}</b> ${x.cred_tope?'<span class="tg r">al tope</span>':''}</div><div class="prog" style="background:var(--soft)"><i style="width:${100*cr}%;background:${cr>.9?'var(--red)':'var(--teal)'}"></i></div>`:'<div class="m">Sin límite de crédito registrado</div>'}</div>`
+ :`<div class="crd"><div class="m">${x.origen==='Prospecto'||/^N-/.test(ficha)?'Prospecto nuevo: sin historial en SAE.':'Sin análisis del plan para este cliente (agregado o del directorio).'}</div></div>`;
+ return `<div style="margin-bottom:6px"><span class="tg ${tagT(x.tipo)}">${esc(x.tipo||'Sin alerta')}</span>${x.ej&&x.ej!==EJ?'<span class="tg s">lo lleva '+esc(x.ej)+'</span>':''}</div>${rx}
+ <div class="hd2"><span>Próximas citas</span></div>${ag.length?ag.map(a=>`<div class="crd"><div class="m">${fd(a.f)} · <span class="tg b">${esc(a.mot)}</span>${esc(a.tipo)}</div></div>`).join(''):'<div class="crd"><div class="m">Ninguna</div></div>'}
+ <div class="hd2"><span>Historial de visitas</span></div><div class="crd">${vs.length?vs.slice(0,10).map(v=>`<div class="hist"><b>${fd(v.ts)}</b> · ${esc(v.mot||v.tipo)} · ${esc(v.res)}${v.ej!==EJ?' · '+esc(v.ej):''}${v.det?'<br>'+esc(v.det):''}${(v.lineas||[]).map(z=>'<br>· '+esc(z.prod)+(z.m2?' · '+(+z.m2).toLocaleString('es-MX')+' m²':'')+' · '+esc(z.motivo)).join('')}${v.nota?'<br><span style="color:var(--mut)">'+esc(v.nota)+'</span>':''}${v.pend?' <span class="tg a">por enviar</span>':''}</div>`).join(''):'<div class="m">Sin visitas registradas</div>'}</div>
+ <div style="display:flex;gap:8px"><button class="save2" style="flex:1" onclick='nuevo("${jq(ficha)}")'>Registrar visita</button><button class="btn2" style="flex:1;margin:0" onclick='agendar("${jq(ficha)}")'>Agendar</button></div>`}
+// ---------- Mi resumen ----------
+function res(){const w0=lunes(HOY),M=misV(),wk=i=>M.filter(v=>v.ts.slice(0,10)>=masDias(w0,-7*i)&&v.ts.slice(0,10)<masDias(w0,-7*i+7)).length;
+ const hist=[4,3,2,1].map(wk),esta=wk(0),wv=M.filter(v=>v.ts.slice(0,10)>=w0),cnt=c=>wv.reduce((m,v)=>{const k=String(v[c]||'—').replace(/^Otro: .*/,'Otro');m[k]=(m[k]||0)+1;return m},{});
+ const al=MIS().filter(x=>ALT.includes(x.tipo)),alv=al.filter(x=>visto(x.cli,30)).length;
+ const L30=M.filter(v=>v.ts.slice(0,10)>=masDias(HOY,-30)).flatMap(v=>(v.lineas||[]).map(l=>Object.assign({cli:v.cli},l)));
+ const comp=L30.filter(l=>l.motivo==='Va a comprar'||l.motivo==='Compró'),raz=L30.filter(l=>!['Compró','Va a comprar','Pedido en camino'].includes(l.motivo)).reduce((m,l)=>(m[l.motivo]=(m[l.motivo]||0)+1,m),{});
+ const atr=misK().filter(a=>a.st==='pendiente'&&a.f<HOY),prox=misK().filter(a=>a.st==='pendiente'&&a.f>=HOY&&a.f<=masDias(HOY,7));
+ const mx=Math.max(...hist,esta,1),hb=m=>{const e=Object.entries(m).sort((a,b)=>b[1]-a[1]),t=Math.max(...e.map(x=>x[1]),1);return e.map(([k,v])=>`<div class="hb"><span class="k">${esc(k)}</span><span class="w"><i style="width:${v/t*100}%"></i></span><b>${v}</b></div>`).join('')||'<div class="m">Aún nada</div>'};
+ const one=[];if(atr.length)one.push(`${atr.length} cita(s) atrasada(s): reagendar o registrar`);
+ const fm2=L30.filter(l=>l.motivo==='Falta de material');if(fm2.length)one.push('Falta de material: '+fm2.slice(0,3).map(l=>l.prod+(l.m2?' ('+l.m2.toLocaleString('es-MX')+' m²)':'')).join(', '));
+ if(al.length-alv)one.push(`${al.length-alv} clientes en alerta sin visita en 30 días: ¿cuáles priorizo?`);comp.slice(0,1).forEach(l=>one.push(`${nom(l.cli)}: ${l.motivo.toLowerCase()} ${l.prod}${l.mes?' · '+l.mes:''}`));
+ return `<div class="crd"><div class="n" style="cursor:default">Mi semana vs mis últimas 4</div><div class="bars">${[...hist,esta].map((v,i)=>`<div class="${i==4?'me':''}" style="height:${v/mx*55}px"><span>${v}</span></div>`).join('')}</div>
+ <div class="bl">${[4,3,2,1].map(i=>`<span>${fd(masDias(w0,-7*i)).slice(4)}</span>`).join('')}<span>esta</span></div><div class="m">Visitas registradas por semana.</div></div>
+ <div class="crd"><div class="n" style="cursor:default">Esta semana: a qué fui</div>${hb(cnt('mot'))}</div>
+ <div class="crd"><div class="n" style="cursor:default">Esta semana: qué pasó</div>${hb(cnt('res'))}</div>
+ <div class="crd"><div class="n" style="cursor:default">Mis clientes en alerta</div><div class="m" style="font-size:12.5px;color:var(--ink)"><b>${alv}</b> de ${al.length} con visita en los últimos 30 días</div></div>
+ <div class="crd"><div class="n" style="cursor:default">Compromisos de compra (30 días)</div>${comp.length?comp.slice(0,8).map(l=>`<div class="hist">${esc(nom(l.cli))} · ${esc(l.motivo)} · ${esc(l.prod)}${l.mes?' · '+esc(l.mes):''}</div>`).join(''):'<div class="m">Ninguno registrado</div>'}</div>
+ <div class="crd"><div class="n" style="cursor:default">Lo que escucho (30 días)</div>${hb(raz)}</div>
+ <div class="crd"><div class="n" style="cursor:default">Mi agenda</div><div class="m" style="color:var(--ink)">${prox.length} citas en los próximos 7 días · <b style="color:${atr.length?'var(--red)':'inherit'}">${atr.length} atrasadas</b></div></div>
+ <div class="crd" style="border-color:var(--teal)"><div class="n" style="cursor:default">Para mi 1:1</div>${one.slice(0,3).map((t,i)=>`<div class="hist">${i+1}. ${esc(t)}</div>`).join('')||'<div class="m">Todo en orden</div>'}</div>`}
+// ---------- Equipo (gerente): seguimiento de la sucursal ----------
+function equipo(){const E=EJS(),w0=lunes(HOY),VV=V.filter(v=>real(v.ej)),KK=K.filter(k=>real(k.ej)&&k.st!=='cancelada'&&k.st!=='pasada');
+ const sem=[5,4,3,2,1,0].map(i=>masDias(w0,-7*i)),nW=(e,s)=>VV.filter(v=>v.ej===e&&v.ts.slice(0,10)>=s&&v.ts.slice(0,10)<masDias(s,7)).length;
+ const vis30=new Set(VV.filter(v=>v.ts.slice(0,10)>=masDias(HOY,-30)).map(v=>v.ej+'|'+v.cli));
+ const cl=D.clientes.filter(c=>real(c.ej)&&c.tipo!=='Agregado'),al=cl.filter(c=>ALT.includes(c.tipo)),alv=al.filter(c=>vis30.has(c.ej+'|'+c.cli));
+ const wv=VV.filter(v=>v.ts.slice(0,10)>=w0),act=E.filter(e=>wv.some(v=>v.ej===e)),kw=KK.filter(k=>k.f>=w0&&k.f<=masDias(w0,4));
+ const sp=VV.filter(v=>v.ts.slice(0,10)>=masDias(HOY,-30)),conSig=sp.filter(v=>v.sig&&v.sig!=='Nada por ahora').length;
+ const col=v=>v==0?'#fbe9e7':v<3?'#fbf3e3':v<5?'#cfe9e1':'#7fcdb4';
+ const L30=sp.flatMap(v=>(v.lineas||[]).map(l=>Object.assign({cli:v.cli,ej:v.ej,ts:v.ts},l)));
+ const atr=KK.filter(k=>k.st==='pendiente'&&k.f<HOY),ot=sp.filter(v=>/^Otro/.test(v.res)||/^Otro/.test(v.mot)).length;
+ const li=(arr,f,vacio)=>arr.length?arr.map(f).join(''):`<div class="li"><span>${vacio}</span></div>`;
+ const raz=L30.filter(l=>!['Compró','Va a comprar','Pedido en camino'].includes(l.motivo)).reduce((m,l)=>(m[l.motivo]=(m[l.motivo]||0)+1,m),{}),re=Object.entries(raz).sort((a,b)=>b[1]-a[1]),rt=Math.max(...re.map(x=>x[1]),1);
+ $('eq').innerHTML=`<div class="eqh"><div><div class="t">Seguimiento comercial · ${PN[PLAZA]}</div><div class="s">semana del ${fd(w0)} · clientes y alertas al ${fd(D.corte)} · v${VER}</div></div>
+ <div class="r">${PLAZAS.length>1?`<select onchange="PLAZA=this.value;ls.set('bp_plaza',PLAZA);EJ='';ls.del('bp_ej');carga()">${PLAZAS.map(p=>`<option value="${p}" ${p===PLAZA?'selected':''}>${PN[p]}</option>`).join('')}</select>`:''}
+ <button onclick="carga(true)">Actualizar</button><button onclick="csv()">Exportar CSV</button><button class="m" onclick="EJ='';ls.del('bp_ej');vista='dia';pinta()">Ver como vendedor</button><button onclick="salir()">Salir</button></div></div>
+ <div class="eqb"><div class="kp"><div><div class="l">Vendedores activos</div><div class="v">${act.length} / ${E.length}</div><div class="d">registraron esta semana</div></div>
+ <div><div class="l">Visitas esta semana</div><div class="v">${wv.length}</div><div class="d">${kw.length} citas agendadas · ${kw.filter(k=>k.st==='hecha').length} hechas</div></div>
+ <div><div class="l">Alertas con visita</div><div class="v">${alv.length} / ${al.length}</div><div class="d">últimos 30 días · ${cl.length} clientes en el plan</div></div>
+ <div><div class="l">Con siguiente paso</div><div class="v">${sp.length?Math.round(conSig/sp.length*100):0} %</div><div class="d">visitas de 30 días con cita o tarea</div></div></div>
+ <div class="gg"><div><div class="pn"><h4>Por vendedor · visitas por semana</h4><table class="g"><tr><th>Vendedor</th><th>Clientes</th><th>Alertas</th><th>Alertas visitadas</th><th title="${sem.map(s=>fd(s)).join(' · ')}">Visitas · 6 semanas → esta</th><th>Atrasadas</th></tr>
+ ${E.map(e=>{const c=cl.filter(x=>x.ej===e),a=c.filter(x=>ALT.includes(x.tipo));return `<tr><td><a onclick='EJ="${jq(e)}";ls.set("bp_ej",EJ);vista="dia";pinta()'>${esc(e)}</a></td><td>${c.length}</td><td>${a.length}</td><td>${a.filter(x=>vis30.has(e+'|'+x.cli)).length}</td><td>${sem.map(s=>{const n=nW(e,s);return `<span class="hm" style="background:${col(n)}">${n}</span>`}).join('')}</td><td>${atr.filter(k=>k.ej===e).length||''}</td></tr>`}).join('')}</table></div>
+ <div class="pn"><h4>Alertas sin visita en 30 días · ${al.length-alv.length}</h4>${li(al.filter(c=>!vis30.has(c.ej+'|'+c.cli)).sort((a,b)=>(b.v12||0)-(a.v12||0)).slice(0,15),c=>`<div class="li"><b>${esc(c.nombre)}</b> <span>· ${esc(c.ej)} · ${esc(c.tipo)} · ${fm(c.v12)} en 12 m</span></div>`,'Todas visitadas')}</div>
+ <div class="pn"><h4>Compromisos de compra (30 días) · para Planeación</h4>${li(L30.filter(l=>l.motivo==='Va a comprar'||l.motivo==='Compró').slice(0,20),l=>`<div class="li"><b>${esc(nom(l.cli))}</b> <span>· ${esc(l.prod)}${l.m2?' · '+l.m2.toLocaleString('es-MX')+' m²':''} · ${esc(l.motivo)}${l.mes?' · '+esc(l.mes):''} · ${esc(l.ej)}</span></div>`,'Ninguno')}</div></div>
+ <div><div class="pn"><h4>Para revisar esta semana</h4><div class="li"><b>Sin registrar esta semana:</b> <span>${E.filter(e=>!act.includes(e)).map(esc).join(', ')||'todos registraron'}</span></div>
+ <div class="li"><b>Citas atrasadas:</b> <span>${atr.length}</span></div><div class="li"><b>Visitas con "Otro":</b> <span>${ot} en 30 días (revisar qué escriben)</span></div></div>
+ <div class="pn"><h4>Falta de material · para Compras</h4>${li(L30.filter(l=>l.motivo==='Falta de material'),l=>`<div class="li"><b>${esc(l.prod)}</b> <span>· ${l.m2?l.m2.toLocaleString('es-MX')+' m²':'sin m²'} · ${esc(nom(l.cli))} · ${fd(l.ts)}</span></div>`,'Ninguna en 30 días')}</div>
+ <div class="pn"><h4>Calidad y reclamos</h4>${li(sp.filter(v=>v.det||(v.lineas||[]).some(l=>l.motivo==='Calidad')),v=>`<div class="li"><b>${esc(nom(v.cli))}</b> <span>· ${esc(v.det||'Calidad')} ${(v.lineas||[]).map(l=>esc(l.prod)).join(', ')} · ${fd(v.ts)} · ${esc(v.ej)}</span></div>`,'Ninguno en 30 días')}</div>
+ <div class="pn"><h4>Lo que escuchan (30 días)</h4>${re.map(([k,v])=>`<div class="hb"><span class="k">${esc(k)}</span><span class="w"><i style="width:${v/rt*100}%"></i></span><b>${v}</b></div>`).join('')||'<div class="li"><span>Aún nada</span></div>'}</div></div></div>
+ <div class="foot-lcg"><img src="${LN}" alt="London Consulting Group"></div></div>`}
+function csv(){const cols=['fecha','sucursal','vendedor','cliente','nombre','a_que_fue','contacto','resultado','detalle','producto','m2','motivo','mes','etapa','cobranza','competidor','siguiente','fecha_siguiente','comentario'];
+ const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';
+ const rows=V.filter(v=>real(v.ej)).flatMap(v=>{const L=v.lineas&&v.lineas.length?v.lineas:[{}];return L.map(l=>[v.ts.slice(0,10),PLAZA,v.ej,v.cli,nom(v.cli),v.mot,v.tipo,v.res,v.det,l.prod,l.m2,l.motivo,l.mes||v.mes,v.pet,v.cob,v.comp,v.sig,v.sigF,v.nota].map(q).join(','))});
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+cols.join(',')+'\n'+rows.join('\n')],{type:'text/csv'}));a.download=`BP_${PLAZA}_${HOY}.csv`;a.click()}
 carga();
 </script></body></html>
