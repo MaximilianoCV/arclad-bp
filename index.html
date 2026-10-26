@@ -187,7 +187,7 @@ const lunes=s=>{const d=dt(s);d.setDate(d.getDate()-((d.getDay()+6)%7));return i
 const masDias=(s,n)=>{const d=dt(s);d.setDate(d.getDate()+n);return iso(d)};
 const fm=v=>v==null?'—':(Math.abs(v)>=1e6?'$'+(v/1e6).toFixed(1)+' M':'$'+Math.round(v/1e3).toLocaleString('es-MX')+' k');
 const pc=v=>v==null||isNaN(v)?'—':((v-1)*100>=0?'+':'')+Math.round((v-1)*100)+' %';
-const PN={GDL:'GDL',CDMX:'CDMX',PUE:'Puebla'};
+const PN={GDL:'GDL',CDMX:'CDMX',PUE:'Puebla y Mérida'};
 // ---------- catálogos del formulario ----------
 const MOT=['Seguimiento','Recuperar cliente','Venta cruzada','Entrega de muestra','Proyecto','Cobranza','Calidad','Reclamo','Presentación','Otro'];
 const RES=['Hizo pedido','Va a comprar','Lo está pensando','No compra','Sin novedad','No lo vi','Otro'];
@@ -234,7 +234,7 @@ async function carga(silencio){
  if(EJ&&!D.clientes.some(c=>c.ej===EJ)&&EJ!==PRUEBA){EJ='';ls.del('bp_ej')}
  if(ROL!=='vendedor'&&!EJ)vista='equipo';pinta()}
 function pideClave(mala){$('nav').classList.add('hide');$('foot').classList.add('hide');
- $('ah').innerHTML='<div class="t">Business Plan</div><div class="s">ARclad · GDL · CDMX · Puebla</div>';
+ $('ah').innerHTML='<div class="t">Business Plan</div><div class="s">ARclad · GDL · CDMX · Puebla y Mérida</div>';
  $('scr').innerHTML=`<div class="login"><div class="q">Clave de acceso</div>${mala?'<div style="color:var(--red);font-size:12px;margin-bottom:6px">Clave incorrecta</div>':''}<input class="txt" style="margin:0;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:#fff" id="clv" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')entra()"><div style="height:12px"></div><button class="save2" style="width:100%" onclick="entra()">Entrar</button>
  <div class="empty" style="margin-top:14px">La clave te la da tu gerente. Cada sucursal tiene la suya.</div></div>`}
 function entra(){CLAVE=$('clv').value.trim();if(!CLAVE)return;$('scr').innerHTML='<div class="load">Cargando…</div>';carga()}
