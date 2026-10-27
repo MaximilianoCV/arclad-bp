@@ -296,7 +296,7 @@ function card(a,o={}){const c=byC(a.cli),venc=a.st==='pendiente'&&a.f<HOY;
  return `<div class="crd ${a.st==='hecha'?'ok':''}"><div class="n" onclick='verFicha("${jq(a.cli)}")'>${esc(c.nombre)}</div>
  <div class="m"><span class="tg b">${esc(a.mot)}</span>${esc(a.tipo)}${a.h?' · '+esc(a.h):''}${o.fecha?' · '+fd(a.f):''}${a.org==='Siguiente paso'?' <span class="tg a">acordado</span>':''}${venc?' <span class="tg r">atrasada</span>':''}</div>
  ${a.nota?`<div class="m" style="color:var(--body)">${esc(a.nota)}</div>`:''}
- ${a.st==='pendiente'?`<div class="acts"><button class="p" onclick='nuevo("${jq(a.cli)}","${a.id}")'>Registrar</button><button onclick="mover('${a.id}')">Pasar a mañana</button><button class="g" onclick="cancela('${a.id}')">Quitar</button></div>`:'<div class="m" style="color:var(--teal);font-weight:800;margin-top:4px">Registrada</div>'}</div>`}
+ ${a.st==='pendiente'?`<div class="acts"><button class="p" onclick='nuevo("${jq(a.cli)}","${a.id}")'>Registrar</button><button onclick="editaCita('${a.id}')">Editar</button><button class="g" onclick="cancela('${a.id}')">Quitar</button></div>`:'<div class="m" style="color:var(--teal);font-weight:800;margin-top:4px">Registrada</div>'}</div>`}
 function subeCita(c){c.plaza=PLAZA;const i=K.findIndex(k=>k.id===c.id);if(i>=0)K[i]=c;else K.push(c);
  const q=ls.get('bp_cola_cita',[]).filter(x=>x.id!==c.id);q.push(c);ls.set('bp_cola_cita',q);reenvia()}
 function mover(id){const a=Object.assign({},K.find(z=>z.id===id));a.f=add(a.f<HOY?HOY:a.f,1);subeCita(a);toast('Movida a '+fd(a.f));pinta()}
@@ -326,19 +326,25 @@ function agenda(){if(aw)return agendaForm();
  const L=K0.filter(a=>a.f===sd);
  h+=`<div class="hd2"><span>${fd(sd)} · ${L.length} citas</span></div>`+(L.length?L.map(a=>card(a)).join(''):'<div class="crd"><div class="m">Sin citas este día.</div></div>');
  return h+`<button class="btn2" onclick="agendar()">+ Agendar cita</button>`}
+// editar una cita: mismo formulario, ya lleno; el cliente no se cambia
+function editaCita(id){const a=K.find(z=>z.id===id);if(!a)return;vista='agenda';ficha=null;
+ const otro=!MOT.includes(a.mot);aw={id:a.id,org:a.org,cli:byC(a.cli),f:a.f<HOY?HOY:a.f,h:a.h||'Mañana',tipo:a.tipo||'Visita',mot:otro?'Otro':a.mot,motx:otro?String(a.mot).replace(/^Otro: /,''):'',nota:a.nota||''};pinta()}
 function agendaForm(){let h='';
  if(!aw.cli)return buscador('agc')+`<button class="btn2" onclick="aw=null;pinta()">Cancelar</button>`;
- h+=`<div class="selc"><div><b>${esc(aw.cli.nombre)}</b><small>${esc(aw.cli.cli)} · ${esc(aw.cli.tipo||'')}</small></div><a onclick="aw.cli=null;pinta()">Cambiar</a></div>`;
+ h+=`<div class="selc"><div><b>${esc(aw.cli.nombre)}</b><small>${esc(aw.cli.cli)} · ${esc(aw.cli.tipo||'')}${aw.id?' · editando cita':''}</small></div>${aw.id?'':'<a onclick="aw.cli=null;pinta()">Cambiar</a>'}</div>`;
  const ds=[];for(let i=0,f=dt(HOY).getDay()%6?HOY:add(HOY,1);i<15;i++,f=add(f,1))ds.push(f);
  h+=Q(1,'¿Qué día?',`<select class="sel2" onchange="aw.f=this.value">`+ds.map(f=>`<option value="${f}" ${aw.f===f?'selected':''}>${f===HOY?'Hoy · ':f===add(HOY,1)?'Mañana · ':''}${fd(f)}</option>`).join('')+'</select>');
  h+=Q(2,'¿A qué hora?',R('aw','h',['Mañana','Tarde'],2));
- h+=Q(3,'¿Cómo?',R('aw','tipo',['Visita','Llamada','WhatsApp'],3));
+ h+=Q(3,'¿Cómo?',R('aw','tipo',['Visita','Llamada','WhatsApp'].concat(['Visita','Llamada','WhatsApp'].includes(aw.tipo)?[]:[aw.tipo]),3));
  h+=Q(4,'¿A qué vas?',R('aw','mot',MOT,2),true,'Sugerido por su alerta: '+sugiere(aw.cli));
  h+=Q(5,'Comentario',`<input class="txt" placeholder="Opcional" value="${esc(aw.nota)}" oninput="aw.nota=this.value">`,false);
- return h+`<button class="save2" id="awb" style="width:100%;margin-top:4px" ${okAw()?'':'disabled'} onclick="guardaCita()">Agendar</button><button class="btn2" onclick="aw=null;pinta()">Cancelar</button>`}
+ return h+`<button class="save2" id="awb" style="width:100%;margin-top:4px" ${okAw()?'':'disabled'} onclick="guardaCita()">${aw.id?'Guardar cambios':'Agendar'}</button><button class="btn2" onclick="aw=null;pinta()">Cancelar</button>`}
 const okAw=()=>aw.mot&&!(aw.mot==='Otro'&&!aw.motx);
 function chkAw(){const b=$('awb');if(b)b.disabled=!okAw()}
-function guardaCita(){if(!okAw())return;ponCliente(aw.cli);
+function guardaCita(){if(!okAw())return;
+ if(aw.id){const o=K.find(z=>z.id===aw.id),c=Object.assign({},o,{f:aw.f||HOY,h:aw.h,tipo:aw.tipo,mot:val(aw,'mot'),nota:aw.nota||''});
+  subeCita(c);selD=c.f;semana=lunes(c.f);toast('Cita actualizada: '+fd(c.f));aw=null;pinta();return}
+ ponCliente(aw.cli);
  const c={id:'k'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),f:aw.f||HOY,ej:EJ,cli:aw.cli.cli,h:aw.h,tipo:aw.tipo,mot:val(aw,'mot'),nota:aw.nota||'',org:'Agenda',st:'pendiente'};
  subeCita(c);selD=c.f;semana=lunes(c.f);toast('Agendado: '+fd(c.f));aw=null;pinta()}
 // cliente de otro vendedor, del directorio o prospecto: se agrega a su lista
