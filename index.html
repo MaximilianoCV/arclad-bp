@@ -143,6 +143,8 @@ table.pt2 td:nth-child(1){width:42%}table.pt2 td:nth-child(2){width:22%}table.pt
 .load{padding:60px 20px;text-align:center;color:var(--mut);font-size:13px}.empty{font-size:12px;color:var(--mut);padding:6px 2px}
 .foot-lcg{text-align:center;padding:16px 0 6px}.foot-lcg img{height:10px;opacity:.5;filter:invert(1)}
 .prueba{background:#fff3cd;color:#7a5600;font-size:11px;font-weight:800;text-align:center;padding:4px}
+.solo{background:#fff3cd;color:#7a5600;font-size:11.5px;font-weight:800;text-align:center;padding:6px 8px}.solo a{color:var(--green);text-decoration:underline;cursor:pointer;margin-left:6px}
+body.ro .acts,body.ro #nav .reg,body.ro .ro-x{display:none!important}body.ro .arapp{top:42px}
 /* equipo (gerente) */
 #eq{display:none}body.wide #eq{display:block}body.wide .app{display:none}body.wide{padding:0}
 .eqh{background:var(--navy);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
@@ -166,11 +168,22 @@ table.pt2 td:nth-child(1){width:42%}table.pt2 td:nth-child(2){width:22%}table.pt
 .mt{font-size:12px;color:var(--mut);margin-top:12px}.tog{font-size:11px;color:var(--teal);font-weight:800;cursor:pointer;white-space:nowrap}
 table.tv{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}table.tv th,table.tv td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}.pn table.tv td,.pn table.tv th{text-align:left}table.tv th:first-child,table.tv td:first-child{text-align:left}
 .etip{position:fixed;pointer-events:none;background:var(--navy);color:#fff;font-size:12px;padding:7px 10px;border-radius:8px;z-index:20;display:none;line-height:1.45}
+/* agenda del equipo: vendedor x dia */
+.agw{overflow-x:auto}table.wk{width:100%;min-width:780px;border-collapse:separate;border-spacing:4px;margin-top:8px;table-layout:fixed}
+table.wk th{font-size:11px;color:var(--mut);font-weight:800;text-align:left;padding:2px 4px}table.wk th.hoy{color:var(--teal)}
+table.wk td{vertical-align:top;background:var(--soft);border-radius:8px;padding:4px;height:44px}table.wk td.hoy{background:#eef7f3}
+table.wk td.nm{background:none;font-size:12.5px;font-weight:800;padding-top:8px}table.wk td.nm small{display:block;font-weight:500;color:var(--mut);font-size:11px;margin-top:2px}
+table.wk td.nm a{display:inline-block;margin-top:4px;color:var(--teal);font-size:11px;font-weight:800;cursor:pointer}table.wk td.tot{background:none;font-size:11.5px;color:var(--body);padding-top:8px}
+.agc{display:block;border-radius:6px;padding:4px 6px;font-size:11px;margin-bottom:3px;cursor:pointer;line-height:1.25;border-left:3px solid}.agc:hover{filter:brightness(.96)}
+.agc b{font-weight:700;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.agc span{color:var(--mut);font-size:10px}
+.agc.p{background:#e9eef9;border-color:#3D5A9E}.agc.h{background:#e3f6ee;border-color:#00A27C}.agc.h b{text-decoration:line-through;color:#4a6b5f}.agc.r{background:#fbe9e7;border-color:var(--red)}
+.alr{font-size:11px;color:var(--red);font-weight:700;margin-top:4px}
 @media(max-width:1100px){.kp{grid-template-columns:repeat(3,1fr)}.d2{grid-template-columns:1fr}.d4{grid-template-columns:1fr 1fr}.d3{grid-template-columns:1fr}}
 @media(max-width:640px){.eqh{position:static}.kp{grid-template-columns:1fr 1fr}.d4{grid-template-columns:1fr}.eqh .sp{display:none}.kp .v{font-size:22px}}
 </style></head><body>
 <div class="app" id="app">
  <div class="prueba hide" id="prb">Modo práctica · Vendedor Prueba · no cuenta en los reportes</div>
+ <div class="solo hide" id="sol"></div>
  <div class="ah" id="ah"></div><img class="arapp" src="data:image/png;base64,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" alt="ARclad">
  <div class="scr" id="scr"><div class="load">Cargando…</div></div>
  <div class="foot3 hide" id="foot"><span class="msg" id="msg"></span><button class="save2" id="sv" disabled onclick="guardar()">Guardar</button></div>
@@ -199,7 +212,7 @@ const lunes=s=>{const d=dt(s);d.setDate(d.getDate()-((d.getDay()+6)%7));return i
 const masDias=(s,n)=>{const d=dt(s);d.setDate(d.getDate()+n);return iso(d)};
 const fm=v=>v==null?'—':(Math.abs(v)>=1e6?'$'+(v/1e6).toFixed(1)+' M':'$'+Math.round(v/1e3).toLocaleString('es-MX')+' k');
 const pc=v=>v==null||isNaN(v)?'—':((v-1)*100>=0?'+':'')+Math.round((v-1)*100)+' %';
-const PN={GDL:'GDL',CDMX:'CDMX',PUE:'Puebla y Mérida'};
+const PN={GDL:'GDL',CDMX:'CDMX',PUE:'Puebla y Mérida',MTY:'Monterrey'};
 // ---------- catálogos del formulario ----------
 const MOT=['Seguimiento','Recuperar cliente','Venta cruzada','Entrega de muestra','Proyecto','Cobranza','Calidad','Reclamo','Presentación','Otro'];
 const RES=['Hizo pedido','Va a comprar','Lo está pensando','No compra','Sin novedad','No lo vi','Otro'];
@@ -219,6 +232,9 @@ const sugiere=c=>!c?'Seguimiento':ALT.includes(c.tipo)?'Recuperar cliente':c.tip
 let HECHO='',D=null,V=[],K=[],PLAZA=ls.get('bp_plaza','GDL'),PLAZAS=[],ROL='vendedor',CLAVE=ls.get('bp_clave',''),EJ=ls.get('bp_ej',''),
  vista='dia',S={},cli=null,from=null,aw=null,ficha=null,semana=lunes(HOY),selD=HOY,lastK='';
 const PRUEBA='Vendedor Prueba', real=e=>e!==PRUEBA;
+// gerente viendo la app de un vendedor desde Equipo: solo lectura (no registra a su nombre)
+let SOLO=false;const soloNo=()=>SOLO&&(toast('Solo lectura: esto lo registra el vendedor'),true);
+function verSu(e){EJ=e;SOLO=true;vista='dia';ficha=null;aw=null;S={};cli=null;from=null;pinta()}
 const toast=t=>{const e=$('toast');e.textContent=t;e.classList.remove('hide');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.add('hide'),2600)};
 // ---------- clientes agregados y vendedor de prueba ----------
 function mkCli(x){const m=D.clientes[0]?D.clientes[0].meses:[];return {pz:'',tipo:'Agregado',plan:x.origen==='Prospecto'?'Prospecto nuevo: presentación y muestras':'Cliente agregado por el vendedor · sin análisis del plan',
@@ -229,7 +245,7 @@ function addExtra(x){if(!D.clientes.some(c=>c.cli===x.cli&&c.ej===x.ej)){const b
 function armaPrueba(){if(D.clientes.some(c=>c.ej===PRUEBA))return;const t={};
  D.clientes.filter(c=>c.tipo!=='Agregado'&&(t[c.tipo]=(t[c.tipo]||0)+1)<=2).slice(0,8).forEach(c=>D.clientes.push(Object.assign({},c,{cli:'PRUEBA-'+c.cli,nombre:c.nombre+' (prueba)',ej:PRUEBA})))}
 function prepara(extra){armaPrueba();(extra||[]).forEach(addExtra);ls.get('bp_cola_cli',[]).filter(x=>(x.plaza||'GDL')===PLAZA).forEach(addExtra)}
-const EJS=()=>[...new Set(D.clientes.filter(c=>c.tipo!=='Agregado').map(c=>c.ej))].filter(real).sort();
+const EJS=()=>[...new Set(D.clientes.filter(c=>c.tipo!=='Agregado').map(c=>c.ej).concat(D.usuarios||[]))].filter(real).sort();   // usuarios: mostrador sin lista (MTY CENTRO)
 const MIS=()=>D.clientes.filter(c=>c.ej===EJ);
 const byC=c=>D.clientes.find(x=>x.cli===c&&x.ej===EJ)||D.clientes.find(x=>x.cli===c)||D.directorio.find(x=>x.cli===c)||{cli:c,nombre:c,tipo:'',productos:[]};
 const nom=c=>byC(c).nombre;
@@ -246,7 +262,7 @@ async function carga(silencio){
  if(EJ&&!D.clientes.some(c=>c.ej===EJ)&&EJ!==PRUEBA){EJ='';ls.del('bp_ej')}
  if(ROL!=='vendedor'&&!EJ)vista='equipo';pinta()}
 function pideClave(mala){$('nav').classList.add('hide');$('foot').classList.add('hide');
- $('ah').innerHTML='<div class="t">Business Plan</div><div class="s">ARclad · GDL · CDMX · Puebla y Mérida</div>';
+ $('ah').innerHTML='<div class="t">Business Plan</div><div class="s">ARclad · GDL · CDMX · Puebla y Mérida · Monterrey</div>';
  $('scr').innerHTML=`<div class="login"><div class="q">Clave de acceso</div>${mala?'<div style="color:var(--red);font-size:12px;margin-bottom:6px">Clave incorrecta</div>':''}<input class="txt" style="margin:0;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:#fff" id="clv" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')entra()"><div style="height:12px"></div><button class="save2" style="width:100%" onclick="entra()">Entrar</button>
  <div class="empty" style="margin-top:14px">La clave te la da tu gerente. Cada sucursal tiene la suya.</div></div>`}
 function entra(){CLAVE=$('clv').value.trim();if(!CLAVE)return;$('scr').innerHTML='<div class="load">Cargando…</div>';carga()}
@@ -265,28 +281,29 @@ async function reenvia(){if(enviando||!CLAVE)return;enviando=true;let n=0;
 addEventListener('online',reenvia);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')reenvia()});
 const porEnviar=()=>ls.get('bp_cola',[]).length+ls.get('bp_cola_cita',[]).length;
 // ---------- navegación ----------
-function ir(v){vista=v;ficha=null;aw=null;if(v!=='reg'){S={};cli=null;from=null}pinta()}
+function ir(v){if(v==='equipo')SOLO=false;vista=v;ficha=null;aw=null;if(v!=='reg'){S={};cli=null;from=null}pinta()}
 function quien(){$('nav').classList.add('hide');$('foot').classList.add('hide');$('prb').classList.add('hide');document.body.classList.remove('wide');
  $('ah').innerHTML=`<div class="t">Business Plan · ${PN[PLAZA]}</div><div class="s">${ROL==='vendedor'?'¿Quién eres?':'Ver la app como…'}</div>`;
  const ejs=EJS().concat([PRUEBA]);
  $('scr').innerHTML=`<div class="login"><div class="q">${ROL==='vendedor'?'¿Quién eres?':'¿Qué vendedor quieres ver?'}</div>${ejs.map(e=>`<button class="chip" onclick='setEj("${jq(e)}")'>${esc(e)} <span style="color:var(--mut);font-weight:500">· ${e===PRUEBA?'para practicar · no cuenta en reportes':D.clientes.filter(c=>c.ej===e).length+' clientes'}</span></button>`).join('')}
  ${ROL!=='vendedor'?`<button class="chip" onclick="ir('equipo')">Volver a Equipo</button>`:''}<div class="empty" style="margin-top:10px"><a onclick="salir()" style="color:var(--mut);text-decoration:underline;cursor:pointer">Salir de este teléfono</a></div></div>`}
-function setEj(e){EJ=e;ls.set('bp_ej',e);ir('dia')}
-function cambia(){EJ='';ls.del('bp_ej');pinta()}
+function setEj(e){SOLO=false;EJ=e;ls.set('bp_ej',e);ir('dia')}
+function cambia(){if(SOLO)return ir('equipo');EJ='';ls.del('bp_ej');pinta()}
 function nav(){const b=(k,t)=>`<button id="b-${k}" class="${vista===k&&!ficha?'on':''}" onclick="ir('${k}')"><span></span>${t}</button>`;
  $('nav').innerHTML=(ROL!=='vendedor'?b('equipo','Equipo'):'')+b('dia','Mi día')+b('agenda','Agenda')+`<button class="reg" onclick="nuevo()"><b>+ Registrar</b></button>`+b('res',ROL==='vendedor'?'Mi resumen':'Resumen');
  $('nav').classList.remove('hide')}
 function head(){let h;const w0=lunes(HOY),es=misK().filter(a=>a.f>=w0&&a.f<=masDias(w0,4)),he=es.filter(a=>a.st==='hecha').length;
- const T={dia:['Mi día · '+fd(HOY),'datos al '+fd(D.corte)],agenda:['Agenda','Planea tu semana'],reg:['Registrar visita',PN[PLAZA]],hecho:['Registrar visita',PN[PLAZA]],res:['Mi resumen','semana del '+fd(w0)],clientes:['Mis clientes',MIS().length+' en tu plan']}[vista]||['',''];
+ const T={dia:['Mi día · '+fd(HOY),'datos al '+fd(D.corte)],agenda:['Agenda','Planea tu semana'],reg:['Registrar visita',PN[PLAZA]],hecho:['Registrar visita',PN[PLAZA]],res:['Mi resumen','semana del '+fd(w0)],clientes:['Mis clientes',MIS().length+' en tu plan']}[vista]||['',''];if(SOLO)T[0]=T[0].replace(/^Mi /,'Su ').replace(/^Mis /,'Sus ');
  h=`<div class="t">${T[0]}</div><div class="s">${T[1]} · v${VER}</div><div class="who" onclick="cambia()">${esc(EJ)} ▾</div>`;
  if(vista==='dia')h+=`<div class="s" style="margin-top:8px;color:#fff">Semana: <b>${he} de ${es.length}</b> citas hechas</div><div class="prog"><i style="width:${es.length?he/es.length*100:0}%"></i></div>`;
  if(ficha)h=`<div class="back" style="color:var(--mint);font-size:12px;cursor:pointer" onclick="ficha=null;pinta()">‹ Regresar</div><div class="t">${esc(nom(ficha))}</div><div class="s">Rayos X · ${esc(ficha)}</div>`;
  $('ah').innerHTML=h}
 function pinta(){if(!D)return;
- if(vista==='equipo'&&ROL!=='vendedor'){document.body.classList.add('wide');return equipo()}
+ if(vista==='equipo'&&ROL!=='vendedor'){document.body.classList.add('wide');document.body.classList.remove('ro');return equipo()}
  document.body.classList.remove('wide');
  if(!EJ)return quien();
- $('prb').classList.toggle('hide',EJ!==PRUEBA);
+ $('prb').classList.toggle('hide',EJ!==PRUEBA);document.body.classList.toggle('ro',SOLO);$('sol').classList.toggle('hide',!SOLO);
+ if(SOLO)$('sol').innerHTML=`Viendo la app de ${esc(EJ)} · solo lectura<a onclick="ir('equipo')">Volver a Equipo</a>`;
  const k=vista+'|'+(cli&&cli.cli)+'|'+ficha+'|'+(aw?1:0)+'|'+(aw&&aw.cli?1:0),st=$('scr').scrollTop;
  head();nav();$('foot').classList.toggle('hide',!(vista==='reg'&&cli&&!ficha));
  $('scr').innerHTML=(ficha?fichaH():vista==='hecho'?HECHO:vista==='dia'?dia():vista==='agenda'?agenda():vista==='reg'?reg():vista==='clientes'?clientes():res())+`<div class="foot-lcg"><img src="${LN}" alt="London Consulting Group"></div>`;
@@ -299,8 +316,8 @@ function card(a,o={}){const c=byC(a.cli),venc=a.st==='pendiente'&&a.f<HOY;
  ${a.st==='pendiente'?`<div class="acts"><button class="p" onclick='nuevo("${jq(a.cli)}","${a.id}")'>Registrar</button><button onclick="editaCita('${a.id}')">Editar</button><button class="g" onclick="cancela('${a.id}')">Quitar</button></div>`:'<div class="m" style="color:var(--teal);font-weight:800;margin-top:4px">Registrada</div>'}</div>`}
 function subeCita(c){c.plaza=PLAZA;const i=K.findIndex(k=>k.id===c.id);if(i>=0)K[i]=c;else K.push(c);
  const q=ls.get('bp_cola_cita',[]).filter(x=>x.id!==c.id);q.push(c);ls.set('bp_cola_cita',q);reenvia()}
-function mover(id){const a=Object.assign({},K.find(z=>z.id===id));a.f=add(a.f<HOY?HOY:a.f,1);subeCita(a);toast('Movida a '+fd(a.f));pinta()}
-function cancela(id){if(!confirm('¿Quitar esta cita de tu agenda?'))return;const a=Object.assign({},K.find(z=>z.id===id),{st:'cancelada'});subeCita(a);pinta()}
+function mover(id){if(soloNo())return;const a=Object.assign({},K.find(z=>z.id===id));a.f=add(a.f<HOY?HOY:a.f,1);subeCita(a);toast('Movida a '+fd(a.f));pinta()}
+function cancela(id){if(soloNo())return;if(!confirm('¿Quitar esta cita de tu agenda?'))return;const a=Object.assign({},K.find(z=>z.id===id),{st:'cancelada'});subeCita(a);pinta()}
 const visto=(c,d)=>misV().some(v=>v.cli===c&&v.ts.slice(0,10)>=masDias(HOY,-d));
 function sinCita(){const con=new Set(misK().filter(a=>a.st==='pendiente').map(a=>a.cli));return MIS().filter(x=>ALT.includes(x.tipo)&&!con.has(x.cli)&&!visto(x.cli,30))}
 // ---------- Mi día ----------
@@ -312,22 +329,22 @@ function dia(){const K0=misK(),hoy=K0.filter(a=>a.f===HOY).sort((a,b)=>a.st===b.
   <div class="m"><span class="tg ${tagT(x.tipo)}">${esc(x.tipo)}</span>${esc(porque(x))}</div><div class="acts"><button class="p" onclick='agendar("${jq(x.cli)}")'>Agendar</button><button onclick='nuevo("${jq(x.cli)}")'>Registrar ya</button></div></div>`).join('');
  const px=K0.filter(a=>a.st==='pendiente'&&a.f>HOY).sort((a,b)=>a.f<b.f?-1:1).slice(0,3);
  if(px.length)h+=`<div class="hd2"><span>Próximas</span><span style="color:var(--teal);cursor:pointer" onclick="ir('agenda')">Ver agenda ›</span></div>`+px.map(a=>`<div class="crd"><div class="n" onclick='verFicha("${jq(a.cli)}")'>${esc(nom(a.cli))}</div><div class="m">${fd(a.f)} · <span class="tg b">${esc(a.mot)}</span>${esc(a.tipo)}</div></div>`).join('');
- h+=`<button class="btn2" onclick="ir('clientes')">Ver mis ${MIS().length} clientes</button>`;return h}
+ h+=`<button class="btn2" onclick="ir('clientes')">Ver ${SOLO?'sus':'mis'} ${MIS().length} clientes</button>`;return h}
 function clientes(){const ord={'Dejó de comprar':0,'Cayó fuerte':1,'Sigue, pero dejó una categoría':2,'Creció fuerte':3,'Agregado':5};
  return MIS().slice().sort((a,b)=>(ord[a.tipo]??4)-(ord[b.tipo]??4)||(b.v12||0)-(a.v12||0)).map(x=>`<div class="crd"><div class="n" onclick='verFicha("${jq(x.cli)}")'>${esc(x.nombre)}</div>
  <div class="m"><span class="tg ${tagT(x.tipo)}">${esc(x.tipo)}</span>${esc(porque(x))}${x.v12?' · '+fm(x.v12)+' en 12 m':''}${visto(x.cli,30)?' · <b style="color:var(--teal)">visitado</b>':''}</div>
  <div class="acts"><button class="p" onclick='nuevo("${jq(x.cli)}")'>Registrar</button><button onclick='agendar("${jq(x.cli)}")'>Agendar</button></div></div>`).join('')||'<div class="empty">Sin clientes</div>'}
 // ---------- Agenda ----------
-function agendar(c){vista='agenda';ficha=null;const x=c?byC(c):null;aw={cli:x,f:HOY,h:'Mañana',tipo:'Visita',mot:sugiere(x),nota:''};pinta()}
+function agendar(c){if(soloNo())return;vista='agenda';ficha=null;const x=c?byC(c):null;aw={cli:x,f:HOY,h:'Mañana',tipo:'Visita',mot:sugiere(x),nota:''};pinta()}
 function agenda(){if(aw)return agendaForm();
  const ds=[0,1,2,3,4].map(i=>masDias(semana,i)),sd=ds.includes(selD)?selD:(ds.includes(HOY)?HOY:ds[0]),K0=misK();
  let h=`<div style="display:flex;justify-content:space-between;align-items:center;margin:2px 4px 6px"><span style="color:var(--teal);font-weight:800;font-size:12px;cursor:pointer" onclick="semana=masDias(semana,-7);pinta()">‹ Anterior</span><b style="font-size:12.5px">Semana del ${fd(semana)}</b><span style="color:var(--teal);font-weight:800;font-size:12px;cursor:pointer" onclick="semana=masDias(semana,7);pinta()">Siguiente ›</span></div>`;
  h+='<div class="days">'+ds.map(f=>{const n=K0.filter(a=>a.f===f).length;return `<div class="${f===sd?'on':''} ${f===HOY?'hoy':''}" onclick="selD='${f}';pinta()">${DIA[dt(f).getDay()]}<b>${dt(f).getDate()}</b><i>${n?n+' cita'+(n>1?'s':''):'—'}</i></div>`}).join('')+'</div>';
  const L=K0.filter(a=>a.f===sd);
  h+=`<div class="hd2"><span>${fd(sd)} · ${L.length} citas</span></div>`+(L.length?L.map(a=>card(a)).join(''):'<div class="crd"><div class="m">Sin citas este día.</div></div>');
- return h+`<button class="btn2" onclick="agendar()">+ Agendar cita</button>`}
+ return h+`<button class="btn2 ro-x" onclick="agendar()">+ Agendar cita</button>`}
 // editar una cita: mismo formulario, ya lleno; el cliente no se cambia
-function editaCita(id){const a=K.find(z=>z.id===id);if(!a)return;vista='agenda';ficha=null;
+function editaCita(id){if(soloNo())return;const a=K.find(z=>z.id===id);if(!a)return;vista='agenda';ficha=null;
  const otro=!MOT.includes(a.mot);aw={id:a.id,org:a.org,cli:byC(a.cli),f:a.f<HOY?HOY:a.f,h:a.h||'Mañana',tipo:a.tipo||'Visita',mot:otro?'Otro':a.mot,motx:otro?String(a.mot).replace(/^Otro: /,''):'',nota:a.nota||''};pinta()}
 function agendaForm(){let h='';
  if(!aw.cli)return buscador('agc')+`<button class="btn2" onclick="aw=null;pinta()">Cancelar</button>`;
@@ -371,7 +388,7 @@ const val=(T,k)=>T[k]==='Otro'&&T[k+'x']?'Otro: '+T[k+'x']:T[k];
 const R=(o,k,opts,cols=1)=>{const T=o==='aw'?aw:S;return `<div class="opts c${cols}">`+opts.map(v=>`<label><input type="radio" name="${o}${k}" value="${esc(v)}" ${T[k]===v?'checked':''} onchange="${o}['${k}']=this.value;pinta()">${esc(v)}${v==='Otro'?':':''}</label>`).join('')+'</div>'+
  (T[k]==='Otro'?`<input class="txt" placeholder="¿Cuál? Escribe un comentario" value="${esc(T[k+'x']||'')}" oninput="${o}['${k}x']=this.value;${o==='aw'?'chkAw()':'upd()'}">`:'')};
 const Q=(n,t,b,req=true,note='')=>`<div class="qq"><div class="qt"><span class="qn">${n}</span>${t}${req?' <b class="rq">*</b>':''}</div>${note?`<div class="qnote">${note}</div>`:''}${b}</div>`;
-function nuevo(c,citaId){vista='reg';ficha=null;aw=null;from=citaId?K.find(k=>k.id===citaId):null;cli=c?byC(c):null;S=cli?{mot:from?from.mot.replace(/^Otro: .*/,'Otro'):sugiere(cli),tipo:from&&from.tipo!=='Tarea'?from.tipo:'Visita'}:{};
+function nuevo(c,citaId){if(soloNo())return;vista='reg';ficha=null;aw=null;from=citaId?K.find(k=>k.id===citaId):null;cli=c?byC(c):null;S=cli?{mot:from?from.mot.replace(/^Otro: .*/,'Otro'):sugiere(cli),tipo:from&&from.tipo!=='Tarea'?from.tipo:'Visita'}:{};
  if(from&&/^Otro: /.test(from.mot))S.motx=from.mot.slice(6);pinta()}
 function nec(){const r=S.res,m=S.mot,its=S.items||[],rc=m==='Reclamo'&&S.recl==='Calidad';
  return{tab:TAB_RES.includes(r)||m==='Calidad'||rc,recl:m==='Reclamo',cal:m==='Calidad'||rc,mes:r==='Va a comprar'||its.some(x=>x.mot==='Va a comprar'),etapa:m==='Entrega de muestra'||m==='Proyecto',cob:m==='Cobranza'}}
@@ -416,7 +433,7 @@ function reg(){if(!cli)return buscador('reg');const n=nec();if(n.tab&&!(S.items&
   if(!n.etapa)h+=Q(k++,'¿Hay proyecto?',R('S','proy',['Nuevo','Avanzó uno','No'],3),false);
   if(!n.cob)h+=Q(k++,'Cobranza',R('S','cob',[...COB,'No se habló'],1),false)}
  return h}
-function guardar(){if(falta())return;const s=SIG.find(x=>sigL(x)===S.sig),n=nec(),sigF=s[2]?add(HOY,s[2]):'';ponCliente(cli);
+function guardar(){if(soloNo())return;if(falta())return;const s=SIG.find(x=>sigL(x)===S.sig),n=nec(),sigF=s[2]?add(HOY,s[2]):'';ponCliente(cli);
  const det=n.recl?'Reclamo: '+val(S,'recl')+(n.cal?' · '+val(S,'calp'):''):n.cal?'Calidad: '+val(S,'calp'):'';
  const b={op:'o'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),plaza:PLAZA,ej:EJ,cli:cli.cli,tipo:S.tipo,res:val(S,'res'),mot:val(S,'mot'),det,
   lineas:(S.items||[]).filter(x=>x.prod).map(x=>({prod:x.prod,m2:+x.cant||0,motivo:x.mot,mes:x.mot==='Va a comprar'?(S.mes||''):''})),mes:n.mes?S.mes:'',
@@ -453,7 +470,7 @@ function fichaH(){const x=byC(ficha),vs=V.filter(v=>v.cli===ficha&&(v.ej===EJ||r
  return `<div style="margin-bottom:6px"><span class="tg ${tagT(x.tipo)}">${esc(x.tipo||'Sin alerta')}</span>${x.ej&&x.ej!==EJ?'<span class="tg s">lo lleva '+esc(x.ej)+'</span>':''}</div>${rx}
  <div class="hd2"><span>Próximas citas</span></div>${ag.length?ag.map(a=>`<div class="crd"><div class="m">${fd(a.f)} · <span class="tg b">${esc(a.mot)}</span>${esc(a.tipo)}</div></div>`).join(''):'<div class="crd"><div class="m">Ninguna</div></div>'}
  <div class="hd2"><span>Historial de visitas</span></div><div class="crd">${vs.length?vs.slice(0,10).map(v=>`<div class="hist"><b>${fd(v.ts)}</b> · ${esc(v.mot||v.tipo)} · ${esc(v.res)}${v.ej!==EJ?' · '+esc(v.ej):''}${v.det?'<br>'+esc(v.det):''}${(v.lineas||[]).map(z=>'<br>· '+esc(z.prod)+(z.m2?' · '+(+z.m2).toLocaleString('es-MX')+' m²':'')+' · '+esc(z.motivo)).join('')}${v.nota?'<br><span style="color:var(--mut)">'+esc(v.nota)+'</span>':''}${v.pend?' <span class="tg a">por enviar</span>':''}</div>`).join(''):'<div class="m">Sin visitas registradas</div>'}</div>
- <div style="display:flex;gap:8px"><button class="save2" style="flex:1" onclick='nuevo("${jq(ficha)}")'>Registrar visita</button><button class="btn2" style="flex:1;margin:0" onclick='agendar("${jq(ficha)}")'>Agendar</button></div>`}
+ <div class="ro-x" style="display:flex;gap:8px"><button class="save2" style="flex:1" onclick='nuevo("${jq(ficha)}")'>Registrar visita</button><button class="btn2" style="flex:1;margin:0" onclick='agendar("${jq(ficha)}")'>Agendar</button></div>`}
 // ---------- Mi resumen ----------
 function res(){const w0=lunes(HOY),M=misV(),wk=i=>M.filter(v=>v.ts.slice(0,10)>=masDias(w0,-7*i)&&v.ts.slice(0,10)<masDias(w0,-7*i+7)).length;
  const hist=[4,3,2,1].map(wk),esta=wk(0),wv=M.filter(v=>v.ts.slice(0,10)>=w0),cnt=c=>wv.reduce((m,v)=>{const k=String(v[c]||'—').replace(/^Otro: .*/,'Otro');m[k]=(m[k]||0)+1;return m},{});
@@ -475,19 +492,34 @@ function res(){const w0=lunes(HOY),M=misV(),wk=i=>M.filter(v=>v.ts.slice(0,10)>=
  <div class="crd"><div class="n" style="cursor:default">Mi agenda</div><div class="m" style="color:var(--ink)">${prox.length} citas en los próximos 7 días · <b style="color:${atr.length?'var(--red)':'inherit'}">${atr.length} atrasadas</b></div></div>
  <div class="crd" style="border-color:var(--teal)"><div class="n" style="cursor:default">Para mi 1:1</div>${one.slice(0,3).map((t,i)=>`<div class="hist">${i+1}. ${esc(t)}</div>`).join('')||'<div class="m">Todo en orden</div>'}</div>`}
 // ---------- Equipo (gerente): tablero de la sucursal, por semana o mes ----------
-let eqModo='sem',eqRef=lunes(HOY),eqFv='',eqTabla=false;
+let eqModo='sem',eqRef=lunes(HOY),eqFv='',eqTabla=false,eqWk=null;
 const PERD=['Precio','Falta de material','Competidor','Calidad','Crédito','Su negocio bajó','Estacional','Otro','No aplica'];
 const eqRango=r=>eqModo==='sem'?[r,masDias(r,6)]:[r,iso(new Date(dt(r).getFullYear(),dt(r).getMonth()+1,0,12))];
 const eqPrev=(r,k=1)=>eqModo==='sem'?masDias(r,-7*k):iso(new Date(dt(r).getFullYear(),dt(r).getMonth()-k,1,12));
 const eqEtq=r=>eqModo==='sem'?dt(r).getDate()+' '+MES[dt(r).getMonth()]:MES[dt(r).getMonth()]+' '+String(dt(r).getFullYear()).slice(2);
-function eqSet(k,v){if(k==='modo'){eqModo=v;eqRef=v==='sem'?lunes(HOY):HOY.slice(0,7)+'-01'}else if(k==='mueve'){const n=v<0?eqPrev(eqRef):eqPrev(eqRef,-1);if(n<=HOY)eqRef=n}else if(k==='ref')eqRef=v;else if(k==='fv')eqFv=v;else if(k==='tabla')eqTabla=!eqTabla;equipo()}
+function eqSet(k,v){if(k==='wk'){eqWk=masDias(eqSem(),7*v);return equipo()}if(k!=='fv'&&k!=='tabla')eqWk=null;if(k==='modo'){eqModo=v;eqRef=v==='sem'?lunes(HOY):HOY.slice(0,7)+'-01'}else if(k==='mueve'){const n=v<0?eqPrev(eqRef):eqPrev(eqRef,-1);if(n<=HOY)eqRef=n}else if(k==='ref')eqRef=v;else if(k==='fv')eqFv=v;else if(k==='tabla')eqTabla=!eqTabla;equipo()}
 const cumplida=k=>k.st==='hecha'||V.some(v=>v.ej===k.ej&&v.cli===k.cli&&v.ts.slice(0,10)>=masDias(k.f,-1)&&v.ts.slice(0,10)<=masDias(k.f,7));
 function eqDatos(r){const en=f=>f>=r[0]&&f<=r[1],ok=e=>real(e)&&(!eqFv||e===eqFv);
  const C=K.filter(k=>ok(k.ej)&&k.st!=='cancelada'&&en(k.f)),Vv=V.filter(v=>ok(v.ej)&&en(v.ts.slice(0,10))),Cv=C.filter(k=>k.f<=HOY);
  // visita "agendada" si había cita con ese cliente de 7 días antes a 1 día después
  const ag=v=>K.some(k=>k.ej===v.ej&&k.cli===v.cli&&k.st!=='cancelada'&&(k.vis===v.id||(v.ts.slice(0,10)>=masDias(k.f,-1)&&v.ts.slice(0,10)<=masDias(k.f,7))));
  return {plan:C.length,ven:Cv.length,cump:Cv.filter(cumplida).length,hechas:Vv.length,fuera:Vv.filter(v=>!ag(v)).length,vis:Vv}}
-function inicio(){EJ='';ls.del('bp_ej');vista='dia';pinta()}   // a la pantalla principal: elegir vendedor
+// agenda del equipo: la semana del periodo elegido (o la que muevan con sus flechas), una fila por vendedor
+const eqSem=()=>eqWk||(eqModo==='sem'?eqRef:(HOY.slice(0,7)===eqRef.slice(0,7)?lunes(HOY):lunes(eqRef)));
+function eqAgenda(E){const w=eqSem(),ds=[0,1,2,3,4].map(i=>masDias(w,i)),nm=e=>e.replace(/^(GD|PU|MR) (FLEXO |DIGITAL )?/,'');
+ const ES={p:'Planeada',h:'Hecha',r:'Atrasada · no registrada'},es=k=>cumplida(k)?'h':k.f<HOY?'r':'p';
+ const v30=new Set(V.filter(v=>v.ts.slice(0,10)>=masDias(HOY,-30)).map(v=>v.ej+'|'+v.cli)),pend=new Set(K.filter(k=>k.st==='pendiente').map(k=>k.ej+'|'+k.cli));
+ const chip=(e,k)=>{const s=es(k);return `<span class="agc ${s}" onclick='verSu("${jq(e)}")' data-tip="<b>${esc(nom(k.cli))}</b><br>${esc(nm(e))} · ${fd(k.f)}${k.h?' · '+esc(k.h):''}<br>${esc(k.mot)} · ${esc(k.tipo)}<br>${ES[s]}${k.nota?'<br>“'+esc(k.nota)+'”':''}${k.org==='Siguiente paso'?'<br><b>acordada en una visita anterior</b>':''}"><b>${esc(nom(k.cli))}</b><span>${esc(k.mot)} · ${esc(k.tipo)}</span></span>`};
+ let t=`<tr><th style="width:150px"></th>${ds.map(f=>`<th class="${f===HOY?'hoy':''}">${DIA[dt(f).getDay()]} ${dt(f).getDate()}${f===HOY?' · hoy':''}</th>`).join('')}<th style="width:125px">Semana</th></tr>`;
+ E.filter(e=>!eqFv||e===eqFv).forEach(e=>{const m=K.filter(k=>k.ej===e&&k.st!=='cancelada'&&k.st!=='pasada'&&ds.includes(k.f)).sort((a,b)=>(a.h||'')<(b.h||'')?-1:1),hh=m.filter(k=>es(k)==='h').length,rr=m.filter(k=>es(k)==='r').length;
+  const sc=D.clientes.filter(c=>c.ej===e&&ALT.includes(c.tipo)&&!pend.has(e+'|'+c.cli)&&!v30.has(e+'|'+c.cli)).length;
+  t+=`<tr><td class="nm">${esc(nm(e))}<small>${D.clientes.filter(c=>c.ej===e).length} clientes en plan</small><a onclick='verSu("${jq(e)}")'>Ver su app ›</a></td>${ds.map(f=>`<td class="${f===HOY?'hoy':''}">${m.filter(k=>k.f===f).map(k=>chip(e,k)).join('')}</td>`).join('')}
+  <td class="tot">${m.length?`<b>${m.length}</b> planeada${m.length>1?'s':''}<br><b style="color:#00A27C">${hh}</b> hecha${hh===1?'':'s'}${rr?`<br><b style="color:var(--red)">${rr}</b> atrasada${rr>1?'s':''}`:''}`:'<b style="color:var(--red)">Nada planeado</b>'}${sc?`<div class="alr">${sc} alerta${sc>1?'s':''} sin cita</div>`:''}</td></tr>`});
+ return `<div class="pn" style="margin-top:12px"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start"><div><h4>Agenda del equipo · semana del ${fd(w).slice(4)}</h4><div class="sb2">Lo que planeó cada vendedor · pasa el mouse por una cita para ver el detalle · clic para abrir su app en solo lectura</div></div>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div class="lg" style="margin-top:0"><span><i style="background:#3D5A9E"></i>Planeada</span><span><i style="background:#00A27C"></i>Hecha</span><span><i style="background:var(--red)"></i>Atrasada</span></div>
+  <span class="tog" onclick="eqSet('wk',-1)">‹ Semana anterior</span><span class="tog" onclick="eqSet('wk',1)">Semana siguiente ›</span></div></div>
+  <div class="agw"><table class="wk">${t}</table></div></div>`}
+function inicio(){SOLO=false;EJ='';ls.del('bp_ej');vista='dia';pinta()}   // a la pantalla principal: elegir vendedor
 function equipo(){const E=EJS(),r=eqRango(eqRef),a=eqDatos(r),b=eqDatos(eqRango(eqPrev(eqRef)));
  const pct=x=>x.ven?Math.round(x.cump/x.ven*100):0,dl=(v,w,s='')=>{const d=v-w;return d===0?'igual que el periodo anterior':`<b class="${d>0?'up':'dn'}">${d>0?'▲':'▼'} ${Math.abs(d)}${s}</b> vs periodo anterior`};
  const AL=D.clientes.filter(c=>real(c.ej)&&c.tipo!=='Agregado'&&ALT.includes(c.tipo)&&(!eqFv||c.ej===eqFv)),v30=new Set(V.filter(v=>v.ts.slice(0,10)>=masDias(HOY,-30)).map(v=>v.ej+'|'+v.cli)),sv=AL.filter(c=>!v30.has(c.ej+'|'+c.cli));
@@ -527,13 +559,14 @@ function equipo(){const E=EJS(),r=eqRango(eqRef),a=eqDatos(r),b=eqDatos(eqRango(
   ['Sin agendar',a.fuera,'visitas registradas fuera de agenda'],
   ['Alertas visitadas',`${AL.length-sv.length} / ${AL.length}`,'en los últimos 30 días'],
   ['Falta de material',L.filter(l=>l.motivo==='Falta de material').length+' prod.',Math.round(m2fm).toLocaleString('es-MX')+' m² registrados en el periodo']].map(([l,v,d])=>`<div><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('')}</div>
+ ${eqAgenda(E)}
  <div class="dg d2"><div class="pn"><div style="display:flex;justify-content:space-between;gap:10px"><div><h4>Visitas planeadas vs hechas</h4><div class="sb2">${eqModo==='sem'?'Últimas 8 semanas':'Últimos 6 meses'}${eqFv?' · '+esc(eqFv):' · todo el equipo'} · clic en una barra para ver ese periodo</div></div><span class="tog" onclick="eqSet('tabla')">${eqTabla?'Ver gráfica':'Ver tabla'}</span></div>
   <div class="lg"><span><i style="background:#3D5A9E"></i>Planeadas (agendadas)</span><span><i style="background:#00A27C"></i>Hechas (visitas registradas)</span></div>${ch}</div>
   <div class="pn"><h4>Por vendedor</h4><div class="sb2">${eqModo==='sem'?'Semana del '+fd(r[0]).slice(4):'Mes de '+MES[dt(r[0]).getMonth()]}</div>
   <div class="lg"><span><i style="background:#3D5A9E"></i>Planeadas</span><span><i style="background:#00A27C"></i>Hechas</span><span style="margin-left:auto">% agenda cumplida</span></div>
   ${PV.map(x=>{const p=x.ven?Math.round(x.cump/x.ven*100):0;return `<div class="vd" data-tip="<b>${esc(x.e)}</b><br>Citas planeadas: ${x.plan}<br>Visitas registradas: ${x.hechas}<br>Citas cumplidas: ${x.cump} de ${x.ven} vencidas"><span class="nm" onclick='eqSet("fv","${jq(x.e)}")'>${esc(nm(x.e))}</span>
    <div class="bs"><i style="width:${x.plan/mv*100}%;background:#3D5A9E"></i><i style="width:${x.hechas/mv*100}%;background:#00A27C"></i></div><span class="pc" style="color:${x.ven&&p<60?'var(--red)':'var(--ink)'}">${x.ven?p+' %':'—'}</span></div>`}).join('')}
-  <div class="mt">${eqFv?`<a style="color:var(--teal);font-weight:800;cursor:pointer" onclick="eqSet('fv','')">Ver todo el equipo</a> · <a style="color:var(--teal);font-weight:800;cursor:pointer" onclick='EJ="${jq(eqFv)}";ls.set("bp_ej",EJ);vista="dia";pinta()'>Ver su app</a>`:'Clic en un nombre para filtrar todo el tablero.'}</div></div></div>
+  <div class="mt">${eqFv?`<a style="color:var(--teal);font-weight:800;cursor:pointer" onclick="eqSet('fv','')">Ver todo el equipo</a> · <a style="color:var(--teal);font-weight:800;cursor:pointer" onclick='verSu("${jq(eqFv)}")'>Ver su app (solo lectura)</a>`:'Clic en un nombre para filtrar todo el tablero.'}</div></div></div>
  <div class="sec3">Resumen · ${eqModo==='sem'?'semana del '+fd(r[0]).slice(4):per}${eqFv?' · '+esc(eqFv):''} · ${a.vis.length} visitas</div>
  <div class="dg d4"><div class="pn"><h4>A qué fueron</h4><div class="sb2">Motivo de la visita</div>${hb(cnt(a.vis,v=>corta(v.mot)||'Sin motivo (piloto)'))}</div>
   <div class="pn"><h4>Qué pasó</h4><div class="sb2">Resultado de la visita</div>${hb(cnt(a.vis,v=>corta(v.res)))}</div>
