@@ -1,6 +1,6 @@
 // 4-nov: abre con la copia guardada (al instante) y la actualiza por detrás. Una versión nueva cambia este archivo,
 // se instala sola y la página se recarga una vez (ver controllerchange en index.html). Las llamadas al /exec no pasan por aquí.
-const C='bp-ba5ef9f4f6',F=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png'];
+const C='bp-31ab857f42',F=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(F)))});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET'||new URL(r.url).origin!==location.origin)return;
